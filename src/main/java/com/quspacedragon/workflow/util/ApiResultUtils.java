@@ -1,6 +1,7 @@
 package com.quspacedragon.workflow.util;
 
 import com.quspacedragon.workflow.common.Result;
+import com.quspacedragon.workflow.exception.ExceptionEnum;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -62,6 +63,19 @@ public class ApiResultUtils {
         result.setSuccess(false);
         result.setCode(errorCode);
         result.setMessage(errorMessage);
+        return result;
+    }
+
+    /**
+     * 失败的返回结果
+     *
+     * @return Result
+     */
+    public static Result failResult(ExceptionEnum exceptionEnum) {
+        Result result = defaultResult();
+        result.setSuccess(false);
+        result.setCode(exceptionEnum.getCode());
+        result.setMessage(exceptionEnum.getMsg());
         return result;
     }
 
