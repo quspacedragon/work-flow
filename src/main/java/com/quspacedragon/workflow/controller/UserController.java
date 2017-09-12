@@ -1,49 +1,66 @@
 package com.quspacedragon.workflow.controller;
 
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.quspacedragon.workflow.common.Result;
-import com.quspacedragon.workflow.model.User;
-import com.quspacedragon.workflow.service.UserService;
+import com.quspacedragon.workflow.entity.User;
+import com.quspacedragon.workflow.service.IUserService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 
-@RestController
-@RequestMapping("/users")
+/**
+ * <p>
+ * 前端控制器
+ * </p>
+ *
+ * @author quspacedragon
+ * @since 2017-09-12
+ */
+@Controller
+@RequestMapping("/user")
 public class UserController {
+    @Resource
+    private IUserService userService;
 
-    @Autowired
-    private UserService userService;
-
-    @RequestMapping
-    public Result getAll(User userInfo) {
-        return ApiResultUtils.successResult(userService.getPage(userInfo));
+    @GetMapping("/add")
+    @ResponseBody
+    public Result insert() {
+        User user = new User();
+        user.setName("123123");
+        boolean flag = user.insert();
+        if (flag) {
+            return ApiResultUtils.successResult(user.selectById());
+        } else {
+            return ApiResultUtils.failResult("插入失败");
+        }
     }
 
-
-    @RequestMapping(value = "/view/{id}")
-    public Result view(@PathVariable Integer id) {
-        User userInfo = userService.getUser(id);
-        return ApiResultUtils.successResult(userInfo);
+    @GetMapping("/update")
+    @ResponseBody
+    public Result update(Long id) {
+        User user = new User();
+        user.setId(id);
+        user = user.selectById();
+        user.setName("11111");
+        boolean flag = user.updateById();
+        if (flag) {
+            return ApiResultUtils.successResult(user.selectById());
+        } else {
+            return ApiResultUtils.failResult("更新失败");
+        }
     }
 
-//    @RequestMapping(value = "/delete/{id}")
-//    public ModelMap delete(@PathVariable Integer id) {
-//        ModelMap result = new ModelMap();
-//        userInfoService.deleteById(id);
-//        result.put("msg", "删除成功!");
-//        return result;
-//    }
-//
-//    @RequestMapping(value = "/save", method = RequestMethod.POST)
-//    public ModelMap save(User userInfo) {
-//        ModelMap result = new ModelMap();
-//        String msg = userInfo.getId() == null ? "新增成功!" : "更新成功!";
-//        userInfoService.save(userInfo);
-//        result.put("userInfo", userInfo);
-//        result.put("msg", msg);
-//        return result;
-//    }
+    @GetMapping("/list")
+    @ResponseBody
+    public Result list() {
+        User user = new User();
+        PageHelper.startPage(1, 100);
+        return ApiResultUtils.successResult(new PageInfo<User>(user.selectAll()));
+    }
 }
