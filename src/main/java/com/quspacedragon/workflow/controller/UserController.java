@@ -7,6 +7,7 @@ import com.quspacedragon.workflow.common.Result;
 import com.quspacedragon.workflow.entity.User;
 import com.quspacedragon.workflow.service.IUserService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class UserController {
 
     @GetMapping("/add")
     @ResponseBody
+    @ApiOperation(value = "用户添加", httpMethod = "GET", response = Result.class, notes = "添加用户")
     public Result insert() {
         User user = new User();
         user.setName("123123");
@@ -38,6 +40,19 @@ public class UserController {
             return ApiResultUtils.successResult(user.selectById());
         } else {
             return ApiResultUtils.failResult("插入失败");
+        }
+    }
+
+    @GetMapping("/delete")
+    @ResponseBody
+    public Result delete(Long id) {
+        User user = new User();
+        user.setId(id);
+        boolean flag = user.deleteById();
+        if (flag) {
+            return ApiResultUtils.successResult(user.selectById());
+        } else {
+            return ApiResultUtils.failResult("删除失败");
         }
     }
 

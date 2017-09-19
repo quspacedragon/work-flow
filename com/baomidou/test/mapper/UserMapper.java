@@ -1,7 +1,7 @@
 package com.baomidou.test.mapper;
 
-import com.baomidou.test.entity.User;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.test.entity.User;
 
 /**
  * <p>

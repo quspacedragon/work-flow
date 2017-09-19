@@ -1,12 +1,11 @@
 package com.baomidou.test.entity;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.Version;
 import com.quspacedragon.workflow.entity.BaseEntity;
+
+import java.io.Serializable;
 
 /**
  * <p>
