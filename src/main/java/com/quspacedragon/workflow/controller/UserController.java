@@ -1,6 +1,7 @@
 package com.quspacedragon.workflow.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.quspacedragon.workflow.common.Result;
@@ -75,5 +76,15 @@ public class UserController {
         User user = new User();
         PageHelper.startPage(1, 100);
         return ApiResultUtils.successResult(new PageInfo<User>(user.selectAll()));
+    }
+
+    @GetMapping("/list1")
+    @ResponseBody
+    public Result list1() {
+        User user = new User();
+        PageHelper.startPage(1, 100);
+        EntityWrapper<User> userEntityWrapper = new EntityWrapper<>();
+
+        return ApiResultUtils.successResult(new PageInfo<User>(user.selectList(userEntityWrapper)));
     }
 }
