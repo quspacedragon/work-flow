@@ -28,6 +28,8 @@ public class User extends BaseEntity<User> {
 		this.name = name;
 	}
 
+	public static final String NAME = "name";
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;

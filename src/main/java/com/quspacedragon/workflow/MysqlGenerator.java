@@ -95,7 +95,7 @@ public class MysqlGenerator {
                 // .setSuperControllerClass("com.baomidou.demo.TestController")
                 // 【实体】是否生成字段常量（默认 false）
                 // public static final String ID = "test_id";
-                // .setEntityColumnConstant(true)
+                 .setEntityColumnConstant(true)
                 // 【实体】是否为构建者模型（默认 false）
                 // public User setName(String name) {this.name = name; return this;}
                 // .setEntityBuilderModel(true)
