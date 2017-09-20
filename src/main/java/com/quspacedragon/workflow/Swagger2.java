@@ -45,9 +45,9 @@ public class Swagger2 extends WebMvcConfigurerAdapter {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("更多Spring Boot相关文章请关注：http://blog.didispace.com/")
-                .termsOfServiceUrl("http://blog.didispace.com/")
+                .title("纺织业工艺追踪系统")
+                .description("纺织业工艺追踪系统api")
+                .termsOfServiceUrl("")
                 .contact("quspacedragon")
                 .version("1.0")
                 .build();
