@@ -35,7 +35,7 @@
 
     <bean id="logicSqlInjector" class="com.baomidou.mybatisplus.mapper.LogicSqlInjector"/>
 
-    <bean id="optimisticLockerInterceptor" class="com.quspacedragon.workflow.common.OptimisticLockerInterceptor"/>
+    <bean id="optimisticLockerInterceptor" class="com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor"/>
 
     <bean id="globalConfig" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
         <property name="sqlInjector" ref="logicSqlInjector"/>

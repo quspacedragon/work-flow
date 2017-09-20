@@ -59,13 +59,11 @@ public class UserController {
     @GetMapping("/update")
     @ResponseBody
     public Result update(Long id) {
-        User user = new User();
-        user.setId(id);
-        user = user.selectById();
+        User user = userService.selectById(id);
         user.setName("11111");
-        boolean flag = user.updateById();
+        boolean flag = userService.updateById(user);
         if (flag) {
-            return ApiResultUtils.successResult(user.selectById());
+            return ApiResultUtils.successResult(userService.selectById(id));
         } else {
             return ApiResultUtils.failResult("更新失败");
         }
