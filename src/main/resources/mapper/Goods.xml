@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quspacedragon.workflow.mapper.GoodsMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.Goods">
+	<result column="id" property="id" />
+	<result column="create_time" property="createTime" />
+	<result column="last_ver" property="lastVer" />
+	<result column="op_time" property="opTime" />
+	<result column="is_valid" property="isValid" />
+	<result column="type" property="type" />
+	<result column="status" property="status" />
+		<result column="goods_no" property="goodsNo" />
+		<result column="enterprise_id" property="enterpriseId" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+	id,
+	create_time AS createTime,
+	last_ver AS lastVer,
+	op_time AS opTime,
+	is_valid AS isValid,
+	type,
+	status,
+        goods_no AS goodsNo, enterprise_id AS enterpriseId
+    </sql>
+
+</mapper>

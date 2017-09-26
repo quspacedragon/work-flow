@@ -1,6 +1,6 @@
 package com.quspacedragon.workflow.service;
 
-import com.quspacedragon.workflow.entity.User;
+import com.quspacedragon.workflow.entity.ScanRecord;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.service.IService;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-20
+ * @since 2017-09-24
  */
-public interface IUserService extends IService<User> {
+public interface IScanRecordService extends IService<ScanRecord> {
 	
 }

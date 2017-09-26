@@ -38,6 +38,7 @@ public class ApiResultUtils {
         result.setData(data);
         result.setCode(HttpStatus.OK.value());
         result.setSuccess(true);
+        result.setMessage("成功");
         return result;
     }
 

@@ -1,6 +1,6 @@
 package com.quspacedragon.workflow.mapper;
 
-import com.quspacedragon.workflow.entity.User;
+import com.quspacedragon.workflow.entity.Bill;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-20
+ * @since 2017-09-24
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface BillMapper extends BaseMapper<Bill> {
 
 }

@@ -9,11 +9,11 @@ package com.quspacedragon.workflow.common;
  * @version V1.0
  * @since 2017/9/7
  */
-public class Result {
+public class Result<T> {
     private int code;
     private String message;
     private Boolean success;
-    private Object data;
+    private T data;
 
     public int getCode() {
         return code;
@@ -31,11 +31,11 @@ public class Result {
         this.message = message;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

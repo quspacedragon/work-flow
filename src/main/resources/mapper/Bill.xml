@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quspacedragon.workflow.mapper.BillMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.Bill">
+	<result column="id" property="id" />
+	<result column="create_time" property="createTime" />
+	<result column="last_ver" property="lastVer" />
+	<result column="op_time" property="opTime" />
+	<result column="is_valid" property="isValid" />
+	<result column="type" property="type" />
+	<result column="status" property="status" />
+		<result column="bill_no" property="billNo" />
+		<result column="weight" property="weight" />
+		<result column="vat_no" property="vatNo" />
+		<result column="varieties" property="varieties" />
+		<result column="color" property="color" />
+		<result column="unpack_name" property="unpackName" />
+		<result column="amout" property="amout" />
+		<result column="enterprise_id" property="enterpriseId" />
+		<result column="op_id" property="opId" />
+		<result column="process_order" property="processOrder" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+	id,
+	create_time AS createTime,
+	last_ver AS lastVer,
+	op_time AS opTime,
+	is_valid AS isValid,
+	type,
+	status,
+        bill_no AS billNo, weight, vat_no AS vatNo, varieties, color, unpack_name AS unpackName, amout, enterprise_id AS enterpriseId, op_id AS opId, process_order AS processOrder
+    </sql>
+
+</mapper>
