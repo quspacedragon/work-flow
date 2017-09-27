@@ -11,6 +11,7 @@
 	<result column="is_valid" property="isValid" />
 	<result column="type" property="type" />
 	<result column="status" property="status" />
+	<result column="attribute" property="attribute" />
 		<result column="enterprise_id" property="enterpriseId" />
 		<result column="dict_name" property="dictName" />
 		<result column="dict_type" property="dictType" />
@@ -27,6 +28,7 @@
 	is_valid AS isValid,
 	type,
 	status,
+	attribute,
         enterprise_id AS enterpriseId, dict_name AS dictName, dict_type AS dictType, dict_key AS dictKey, code
     </sql>
 

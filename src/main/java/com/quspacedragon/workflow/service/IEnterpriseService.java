@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.service.IService;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-24
+ * @since 2017-09-27
  */
 public interface IEnterpriseService extends IService<Enterprise> {
 	

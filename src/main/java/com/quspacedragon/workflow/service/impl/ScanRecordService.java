@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-24
+ * @since 2017-09-27
  */
 @Service
 public class ScanRecordService extends ServiceImpl<ScanRecordMapper, ScanRecord> implements IScanRecordService {

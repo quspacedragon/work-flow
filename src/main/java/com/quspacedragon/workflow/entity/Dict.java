@@ -1,8 +1,11 @@
 package com.quspacedragon.workflow.entity;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.Version;
+import com.quspacedragon.workflow.entity.BaseEntity;
 
 /**
  * <p>
@@ -10,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-24
+ * @since 2017-09-27
  */
 public class Dict extends BaseEntity<Dict> {
 

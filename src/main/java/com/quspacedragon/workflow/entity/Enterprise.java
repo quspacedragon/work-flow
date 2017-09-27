@@ -1,11 +1,8 @@
 package com.quspacedragon.workflow.entity;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.Version;
-import com.quspacedragon.workflow.entity.BaseEntity;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -13,7 +10,7 @@ import com.quspacedragon.workflow.entity.BaseEntity;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-24
+ * @since 2017-09-27
  */
 public class Enterprise extends BaseEntity<Enterprise> {
 

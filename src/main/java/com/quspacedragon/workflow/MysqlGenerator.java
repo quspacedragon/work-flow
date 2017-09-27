@@ -76,7 +76,8 @@ public class MysqlGenerator {
                         // .setDbColumnUnderline(true)//全局下划线命名
 //                        .setTablePrefix(new String[]{"bmd_", "mp_"})// 此处可以修改为您的表前缀
                         .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
-                         .setInclude(new String[] { "bill","dict","enterprise","goods","scan_record","staff" }) // 需要生成的表
+//                         .setInclude(new String[] { "bill","dict","enterprise","goods","scan_record","staff" }) // 需要生成的表
+                        .setInclude(new String[] {"token"}) // 需要生成的表
                         // .setExclude(new String[]{"test"}) // 排除生成的表
                         // 自定义实体父类
                          .setSuperEntityClass("com.quspacedragon.workflow.entity.BaseEntity")

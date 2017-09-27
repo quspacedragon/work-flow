@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-24
+ * @since 2017-09-27
  */
 @Controller
 @RequestMapping("/scanRecord")

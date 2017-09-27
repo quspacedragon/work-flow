@@ -14,7 +14,7 @@ import com.quspacedragon.workflow.entity.BaseEntity;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-24
+ * @since 2017-09-27
  */
 @TableName("scan_record")
 public class ScanRecord extends BaseEntity<ScanRecord> {
