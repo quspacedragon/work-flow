@@ -21,9 +21,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @MapperScan(basePackages = "com.quspacedragon.workflow.mapper")
 public class Application extends WebMvcConfigurerAdapter implements CommandLineRunner, EmbeddedServletContainerCustomizer {
     private Logger logger = LoggerFactory.getLogger(Application.class);
+    private static int port = 8080;
 
     public static void main(String[] args) {
+        if (args.length > 0) {
+            port = Integer.parseInt(args[0]);
+        }
         SpringApplication.run(Application.class, args);
+
     }
 
     @Override
@@ -38,6 +43,6 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
 
     @Override
     public void customize(ConfigurableEmbeddedServletContainer configurableEmbeddedServletContainer) {
-        configurableEmbeddedServletContainer.setPort(8080);
+        configurableEmbeddedServletContainer.setPort(port);
     }
 }
