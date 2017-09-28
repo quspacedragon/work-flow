@@ -29,6 +29,7 @@ public abstract class BaseEntity<T extends Model> extends Model<T> {
     @TableField(fill = FieldFill.INSERT)
     protected Integer status;
     protected Integer type;
+    @TableField(value = "attribute")
     protected String attribute;
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     protected Long createTime;

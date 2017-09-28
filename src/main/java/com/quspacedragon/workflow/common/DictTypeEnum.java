@@ -36,7 +36,7 @@ public enum DictTypeEnum {
         this.name = name;
     }
 
-    public boolean contains(int type) {
+    public static boolean contains(int type) {
         DictTypeEnum[] values = values();
         for (DictTypeEnum value : values) {
             if (value.getType() == type) {

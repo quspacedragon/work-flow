@@ -1,15 +1,12 @@
 package com.quspacedragon.workflow.entity;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.Version;
-import com.quspacedragon.workflow.entity.BaseEntity;
+
+import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author quspacedragon
@@ -19,157 +16,161 @@ public class Bill extends BaseEntity<Bill> {
 
     private static final long serialVersionUID = 1L;
 
-	@TableField("bill_no")
-	private String billNo;
-	private Integer weight;
-	@TableField("vat_no")
-	private String vatNo;
+    @TableField("bill_no")
+    private String billNo;
+    private Integer weight;
+    @TableField("vat_no")
+    private String vatNo;
     /**
      * 品种
      */
-	private Integer varieties;
+    private Long varieties;
     /**
      * 颜色
      */
-	private Integer color;
+    private Long color;
     /**
      * 拆包人
      */
-	@TableField("unpack_name")
-	private String unpackName;
+    @TableField("unpack_name")
+    private String unpackName;
     /**
      * 数量
      */
-	private Integer amout;
-	@TableField("enterprise_id")
-	private Integer enterpriseId;
-	@TableField("op_id")
-	private Integer opId;
+    private Integer amout;
+    @TableField("enterprise_id")
+    private Long enterpriseId;
+    @TableField("op_id")
+    private Integer opId;
     /**
      * 处理序列
      */
-	@TableField("process_order")
-	private String processOrder;
+    @TableField("process_order")
+    private String processOrder;
 
 
-	public String getBillNo() {
-		return billNo;
-	}
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
-	public void setBillNo(String billNo) {
-		this.billNo = billNo;
-	}
+    public String getBillNo() {
+        return billNo;
+    }
 
-	public Integer getWeight() {
-		return weight;
-	}
+    public void setBillNo(String billNo) {
+        this.billNo = billNo;
+    }
 
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
+    public Integer getWeight() {
+        return weight;
+    }
 
-	public String getVatNo() {
-		return vatNo;
-	}
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
 
-	public void setVatNo(String vatNo) {
-		this.vatNo = vatNo;
-	}
+    public String getVatNo() {
+        return vatNo;
+    }
 
-	public Integer getVarieties() {
-		return varieties;
-	}
+    public void setVatNo(String vatNo) {
+        this.vatNo = vatNo;
+    }
 
-	public void setVarieties(Integer varieties) {
-		this.varieties = varieties;
-	}
+    public Long getVarieties() {
+        return varieties;
+    }
 
-	public Integer getColor() {
-		return color;
-	}
+    public void setVarieties(Long varieties) {
+        this.varieties = varieties;
+    }
 
-	public void setColor(Integer color) {
-		this.color = color;
-	}
+    public Long getColor() {
+        return color;
+    }
 
-	public String getUnpackName() {
-		return unpackName;
-	}
+    public void setColor(Long color) {
+        this.color = color;
+    }
 
-	public void setUnpackName(String unpackName) {
-		this.unpackName = unpackName;
-	}
+    public String getUnpackName() {
+        return unpackName;
+    }
 
-	public Integer getAmout() {
-		return amout;
-	}
+    public void setUnpackName(String unpackName) {
+        this.unpackName = unpackName;
+    }
 
-	public void setAmout(Integer amout) {
-		this.amout = amout;
-	}
+    public Integer getAmout() {
+        return amout;
+    }
 
-	public Integer getEnterpriseId() {
-		return enterpriseId;
-	}
+    public void setAmout(Integer amout) {
+        this.amout = amout;
+    }
 
-	public void setEnterpriseId(Integer enterpriseId) {
-		this.enterpriseId = enterpriseId;
-	}
+    public Long getEnterpriseId() {
+        return enterpriseId;
+    }
 
-	public Integer getOpId() {
-		return opId;
-	}
+    public void setEnterpriseId(Long enterpriseId) {
+        this.enterpriseId = enterpriseId;
+    }
 
-	public void setOpId(Integer opId) {
-		this.opId = opId;
-	}
+    public Integer getOpId() {
+        return opId;
+    }
 
-	public String getProcessOrder() {
-		return processOrder;
-	}
+    public void setOpId(Integer opId) {
+        this.opId = opId;
+    }
 
-	public void setProcessOrder(String processOrder) {
-		this.processOrder = processOrder;
-	}
+    public String getProcessOrder() {
+        return processOrder;
+    }
 
-	public static final String BILL_NO = "bill_no";
+    public void setProcessOrder(String processOrder) {
+        this.processOrder = processOrder;
+    }
 
-	public static final String WEIGHT = "weight";
+    public static final String BILL_NO = "bill_no";
 
-	public static final String VAT_NO = "vat_no";
+    public static final String WEIGHT = "weight";
 
-	public static final String VARIETIES = "varieties";
+    public static final String VAT_NO = "vat_no";
 
-	public static final String COLOR = "color";
+    public static final String VARIETIES = "varieties";
 
-	public static final String UNPACK_NAME = "unpack_name";
+    public static final String COLOR = "color";
 
-	public static final String AMOUT = "amout";
+    public static final String UNPACK_NAME = "unpack_name";
 
-	public static final String ENTERPRISE_ID = "enterprise_id";
+    public static final String AMOUT = "amout";
 
-	public static final String OP_ID = "op_id";
+    public static final String ENTERPRISE_ID = "enterprise_id";
 
-	public static final String PROCESS_ORDER = "process_order";
+    public static final String OP_ID = "op_id";
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    public static final String PROCESS_ORDER = "process_order";
 
-	@Override
-	public String toString() {
-		return "Bill{" +
-			"billNo=" + billNo +
-			", weight=" + weight +
-			", vatNo=" + vatNo +
-			", varieties=" + varieties +
-			", color=" + color +
-			", unpackName=" + unpackName +
-			", amout=" + amout +
-			", enterpriseId=" + enterpriseId +
-			", opId=" + opId +
-			", processOrder=" + processOrder +
-			"}";
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "billNo=" + billNo +
+                ", weight=" + weight +
+                ", vatNo=" + vatNo +
+                ", varieties=" + varieties +
+                ", color=" + color +
+                ", unpackName=" + unpackName +
+                ", amout=" + amout +
+                ", enterpriseId=" + enterpriseId +
+                ", opId=" + opId +
+                ", processOrder=" + processOrder +
+                "}";
+    }
 }

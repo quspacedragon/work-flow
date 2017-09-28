@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 @ImportResource({"classpath:conf/*.xml"})
 @MapperScan(basePackages = "com.quspacedragon.workflow.mapper")
-public class Application extends WebMvcConfigurerAdapter implements CommandLineRunner {
+public class Application extends WebMvcConfigurerAdapter implements CommandLineRunner, EmbeddedServletContainerCustomizer {
     private Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
@@ -32,5 +34,10 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
     @RequestMapping("/")
     String home() {
         return "redirect:countries";
+    }
+
+    @Override
+    public void customize(ConfigurableEmbeddedServletContainer configurableEmbeddedServletContainer) {
+        configurableEmbeddedServletContainer.setPort(8080);
     }
 }

@@ -1,11 +1,8 @@
 package com.quspacedragon.workflow.entity;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.Version;
-import com.quspacedragon.workflow.entity.BaseEntity;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -25,7 +22,7 @@ public class Goods extends BaseEntity<Goods> {
      * 企业id
      */
 	@TableField("enterprise_id")
-	private Integer enterpriseId;
+	private Long enterpriseId;
 
 
 	public String getGoodsNo() {
@@ -36,11 +33,11 @@ public class Goods extends BaseEntity<Goods> {
 		this.goodsNo = goodsNo;
 	}
 
-	public Integer getEnterpriseId() {
+	public Long getEnterpriseId() {
 		return enterpriseId;
 	}
 
-	public void setEnterpriseId(Integer enterpriseId) {
+	public void setEnterpriseId(Long enterpriseId) {
 		this.enterpriseId = enterpriseId;
 	}
 

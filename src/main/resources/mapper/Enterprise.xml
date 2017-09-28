@@ -14,6 +14,7 @@
 		<result column="login_name" property="loginName" />
 		<result column="login_pwd" property="loginPwd" />
 		<result column="enterprise_no" property="enterpriseNo" />
+		<result column="attribute" property="attribute" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
@@ -25,7 +26,7 @@
 	is_valid AS isValid,
 	type,
 	status,
-        login_name AS loginName, login_pwd AS loginPwd, enterprise_no AS enterpriseNo
+        login_name AS loginName, login_pwd AS loginPwd, enterprise_no AS enterpriseNo,attribute
     </sql>
 
 </mapper>

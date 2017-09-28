@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 2017/8/8
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes=Application.class)// 指定spring-boot的启动类
-public class BaseTest extends TestCase {
+@SpringBootTest(classes = Application.class)// 指定spring-boot的启动类
+public abstract class BaseTest extends TestCase {
+
 }
