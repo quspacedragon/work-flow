@@ -29,13 +29,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     static {
         filterSet.add("/login");
+        filterSet.add("/swagger-ui.html");
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler
     ) throws Exception {
-
+        System.out.println(request.getRequestURI());
+        if (filterSet.contains(request.getRequestURI())) return true;
 
         Integer userId = null;
         String userToken = null;
@@ -44,6 +46,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             String userIdParam = request.getParameter("userId");
             userToken = request.getParameter("token");
             userId = Integer.parseInt(userIdParam);
+            if (userToken == null) {
+                writer.print(
+                        ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "userToken参数缺失"));
+                return false;
+            }
+            if (userId == null) {
+                writer.print(
+                        ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "userId参数缺失"));
+                return false;
+            }
 
             Token validToken = tokenService.findValidToken(userId, userToken);
             if (validToken == null) {
