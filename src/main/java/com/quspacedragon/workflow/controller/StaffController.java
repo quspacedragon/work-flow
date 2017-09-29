@@ -114,12 +114,12 @@ public class StaffController {
     @GetMapping("/")
     @ResponseBody
     @ApiOperation(value = "员工分页查询", httpMethod = "GET", response = StaffVo.class, notes = "查询")
-    public Result<Page<StaffVo>> list(@ApiParam(name = "current", value = "页码", required = false) Integer current,
-                                      @ApiParam(name = "pageSize", value = "每页条数", required = false) Integer pageSize) {
+    public Result<Page<StaffVo>> list(@ApiParam(name = "current", value = "页码", required = false, defaultValue = "0") @RequestParam(defaultValue = "0") Integer current,
+                                      @ApiParam(name = "pageSize", value = "每页条数", required = false, defaultValue = "10") @RequestParam(defaultValue = "10") Integer pageSize) {
         Page staffPage = new Page<>();
         staffPage.setCurrent(current);
         staffPage.setSize(pageSize);
-        staffPage = staffService.selectPage(null);
+        staffPage = staffService.selectPage(staffPage);
         ImmutableList immutableList = FluentIterable.from(staffPage.getRecords()).transform(r -> ConverUtils.conver(r, StaffVo.class)).toList();
         staffPage.setRecords(immutableList);
         return ApiResultUtils.successResult(staffPage);
