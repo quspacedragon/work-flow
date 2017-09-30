@@ -3,9 +3,11 @@ package com.quspacedragon.workflow.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.quspacedragon.workflow.common.Result;
+import com.quspacedragon.workflow.common.UserHelper;
 import com.quspacedragon.workflow.entity.Goods;
 import com.quspacedragon.workflow.service.IGoodsService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import com.quspacedragon.workflow.vo.EnterpriseVo;
 import com.quspacedragon.workflow.vo.GoodsVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -37,6 +39,8 @@ public class GoodsController {
     @ResponseBody
     @ApiOperation(value = "货物添加", httpMethod = "POST", response = GoodsVo.class, notes = "保存货物")
     public Result<GoodsVo> insert() {
+        EnterpriseVo user = UserHelper.getUser();
+
         GoodsVo dict = new GoodsVo();
 
         return ApiResultUtils.successResult(dict);
@@ -45,7 +49,7 @@ public class GoodsController {
 
     @GetMapping("/")
     @ResponseBody
-    @ApiOperation(value = "字典列表查询", httpMethod = "GET", response = GoodsVo.class, notes = "查询")
+    @ApiOperation(value = "货物查询", httpMethod = "GET", response = GoodsVo.class, notes = "查询")
     public Result<List<GoodsVo>> list() {
         Goods dict = new Goods();
         EntityWrapper<Goods> dictEntityWrapper = new EntityWrapper<>();

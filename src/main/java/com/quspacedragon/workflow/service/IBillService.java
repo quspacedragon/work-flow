@@ -5,12 +5,13 @@ import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author quspacedragon
  * @since 2017-09-27
  */
 public interface IBillService extends IService<Bill> {
-	
+    Long createBill(Bill bill) throws Exception;
+
 }

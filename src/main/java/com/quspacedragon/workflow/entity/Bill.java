@@ -47,6 +47,10 @@ public class Bill extends BaseEntity<Bill> {
      */
     @TableField("process_order")
     private String processOrder;
+    @TableField("customer_id")
+    private Long customerId;
+    @TableField("goods_id")
+    private Long goodsId;
 
 
     public static long getSerialVersionUID() {
@@ -152,6 +156,25 @@ public class Bill extends BaseEntity<Bill> {
     public static final String OP_ID = "op_id";
 
     public static final String PROCESS_ORDER = "process_order";
+
+    public static final String CUSTOMER_ID = "customer_id";
+
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Long getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
+    }
 
     @Override
     protected Serializable pkVal() {
