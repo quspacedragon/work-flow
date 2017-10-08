@@ -24,6 +24,10 @@ public class ScanRecord extends BaseEntity<ScanRecord> {
     private Long enterpriseId;
     @TableField("op_id")
     private Long opId;
+    @TableField("from_status")
+    private Byte fromStatus;
+    @TableField("to_status")
+    private Byte toStatus;
 
 
     public Long getBillId() {
@@ -55,6 +59,22 @@ public class ScanRecord extends BaseEntity<ScanRecord> {
     public static final String ENTERPRISE_ID = "enterprise_id";
 
     public static final String OP_ID = "op_id";
+
+    public Byte getFromStatus() {
+        return fromStatus;
+    }
+
+    public void setFromStatus(Byte fromStatus) {
+        this.fromStatus = fromStatus;
+    }
+
+    public Byte getToStatus() {
+        return toStatus;
+    }
+
+    public void setToStatus(Byte toStatus) {
+        this.toStatus = toStatus;
+    }
 
     @Override
     protected Serializable pkVal() {

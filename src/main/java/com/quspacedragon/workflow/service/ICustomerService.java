@@ -1,7 +1,7 @@
 package com.quspacedragon.workflow.service;
 
-import com.quspacedragon.workflow.entity.Customer;
 import com.baomidou.mybatisplus.service.IService;
+import com.quspacedragon.workflow.entity.Customer;
 
 /**
  * <p>
@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface ICustomerService extends IService<Customer> {
     Long createCustomer(Customer customer) throws Exception;
+
+    Customer findByUsernameAndPwd(String loginName, String pwd);
 }

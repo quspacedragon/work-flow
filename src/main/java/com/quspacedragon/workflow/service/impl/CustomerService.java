@@ -1,5 +1,6 @@
 package com.quspacedragon.workflow.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.quspacedragon.workflow.common.UserHelper;
 import com.quspacedragon.workflow.entity.Customer;
@@ -34,4 +35,13 @@ public class CustomerService extends ServiceImpl<CustomerMapper, Customer> imple
             throw new Exception("商户添加失败");
         }
     }
+
+    @Override
+    public Customer findByUsernameAndPwd(String loginName, String pwd) {
+        Customer enterprise = new Customer();
+        enterprise.setLoginName(loginName);
+        enterprise.setLoginPwd(pwd);
+        return selectOne(new EntityWrapper<>(enterprise));
+    }
+
 }

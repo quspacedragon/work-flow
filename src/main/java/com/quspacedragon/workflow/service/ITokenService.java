@@ -18,8 +18,8 @@ public interface ITokenService extends IService<Token> {
      * @param userId
      * @return
      */
-    public Token findValidToken(Long userId, String tokenValue);
+    public Token findValidToken(Long userId, String tokenValue, int type);
 
-    public Token findByEnterpriseId(Long userId);
+    public Token findByEnterpriseId(Long userId, int type);
 
 }

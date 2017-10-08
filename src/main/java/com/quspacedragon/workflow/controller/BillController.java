@@ -12,7 +12,6 @@ import com.quspacedragon.workflow.service.IBillService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
 import com.quspacedragon.workflow.util.ConverUtils;
 import com.quspacedragon.workflow.vo.BillVo;
-import com.quspacedragon.workflow.vo.DictVo;
 import com.quspacedragon.workflow.vo.EnterpriseVo;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -96,7 +95,7 @@ public class BillController {
     @GetMapping("/{id}")
     @ResponseBody
     @ApiOperation(value = "订单查询", httpMethod = "GET", response = BillVo.class, notes = "查询")
-    public Result<DictVo> get(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Integer id) {
+    public Result<BillVo> get(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Integer id) {
         return ApiResultUtils.successResult(ConverUtils.conver(billService.selectById(id), BillVo.class));
     }
 
@@ -105,12 +104,26 @@ public class BillController {
     @ResponseBody
     @ApiOperation(value = "订单分页查询", httpMethod = "GET", response = BillVo.class, notes = "查询")
     public Result<Page<BillVo>> list(@ApiParam(name = "current", value = "页码", required = false, defaultValue = "0") @RequestParam(defaultValue = "0") Integer current,
-                                     @ApiParam(name = "pageSize", value = "每页条数", required = false, defaultValue = "10") @RequestParam(defaultValue = "10") Integer pageSize) {
+                                     @ApiParam(name = "pageSize", value = "每页条数", required = false, defaultValue = "10") @RequestParam(defaultValue = "10") Integer pageSize,
+                                     @ApiParam(name = "goodsId", value = "货物id", required = false) @RequestParam Long goodsId,
+                                     @ApiParam(name = "billNo", value = "订单id", required = false) @RequestParam String billNo,
+                                     @ApiParam(name = "startTime", value = "开始时间，unix时间戳", required = false) @RequestParam Long startTime,
+                                     @ApiParam(name = "endTime", value = "结束时间，unix时间戳", required = false) @RequestParam Long endTime) {
         EnterpriseVo user = UserHelper.getUser();
         Bill bill = new Bill();
         bill.setEnterpriseId(user.getId());
+        bill.setGoodsId(goodsId);
+        bill.setBillNo(billNo);
         EntityWrapper<Bill> entityWrapper = new EntityWrapper<>();
         entityWrapper.setEntity(bill);
+        if (startTime != null) {
+            entityWrapper.gt(true, "create_time", startTime);
+
+        }
+        if (endTime != null) {
+            entityWrapper.gt(true, "create_time", endTime);
+
+        }
         Page staffPage = new Page<>();
         staffPage.setCurrent(current);
         staffPage.setSize(pageSize);

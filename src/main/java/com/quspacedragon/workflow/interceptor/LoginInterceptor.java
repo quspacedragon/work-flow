@@ -1,12 +1,18 @@
 package com.quspacedragon.workflow.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.quspacedragon.workflow.common.LoginUserTypeEnum;
 import com.quspacedragon.workflow.common.UserHelper;
+import com.quspacedragon.workflow.entity.Customer;
 import com.quspacedragon.workflow.entity.Enterprise;
 import com.quspacedragon.workflow.entity.Token;
+import com.quspacedragon.workflow.service.ICustomerService;
 import com.quspacedragon.workflow.service.IEnterpriseService;
 import com.quspacedragon.workflow.service.ITokenService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import com.quspacedragon.workflow.util.ConverUtils;
+import com.quspacedragon.workflow.vo.CustomerVo;
+import com.quspacedragon.workflow.vo.EnterpriseVo;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -36,8 +42,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler
     ) throws Exception {
-        System.out.println(request.getRequestURI());
-        if (filterSet.contains(request.getRequestURI())) return true;
+        String requestURI = request.getRequestURI();
+        if (filterSet.contains(requestURI)) return true;
+
         ApplicationContext ac1 = WebApplicationContextUtils
                 .getRequiredWebApplicationContext(request.getSession()
                         .getServletContext());
@@ -45,11 +52,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 .getBean("tokenService");
         IEnterpriseService enterpriseService = (IEnterpriseService) ac1
                 .getBean("enterpriseService");
+        ICustomerService customerService = (ICustomerService) ac1
+                .getBean("customerService");
+
         Long userId = null;
         String userToken = null;
+        Integer type;
         try {
             String userIdParam = request.getParameter("userId");
             userToken = request.getParameter("token");
+            if (requestURI.startsWith("/app")) {
+                type = LoginUserTypeEnum.CUSTOMER.getType();
+            } else {
+                String typeParam = request.getParameter("type");
+                type = Integer.parseInt(typeParam);
+            }
             userId = Long.parseLong(userIdParam);
             if (userToken == null) {
                 print(response,
@@ -61,21 +78,36 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                         ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "userId参数缺失"));
                 return false;
             }
+            if (type == null) {
+                print(response,
+                        ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "type参数缺失"));
+                return false;
+            }
 
-            Token validToken = tokenService.findValidToken(userId, userToken);
+            Token validToken = tokenService.findValidToken(userId, userToken, type);
             if (validToken == null) {
                 print(response,
                         ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "请重新登录"));
                 return false;
             }
         } catch (Exception e) {
-            log.error("", e);
+            log.error("error", e);
             print(response,
                     ApiResultUtils.failResult(HttpStatus.BAD_REQUEST.ordinal(), "参数错误"));
             return false;
         }
-        Enterprise enterprise = enterpriseService.selectById(userId);
-        request.setAttribute(UserHelper.USER_CONSTANT, enterprise);
+        if (type == LoginUserTypeEnum.CUSTOMER.getType()) {
+            Customer customer = customerService.selectById(userId);
+            CustomerVo conver = (CustomerVo) ConverUtils.conver(customer, CustomerVo.class);
+            conver.setToken(userToken);
+            UserHelper.appLogin(conver);
+        } else {
+            Enterprise enterprise = enterpriseService.selectById(userId);
+            EnterpriseVo conver = (EnterpriseVo) ConverUtils.conver(enterprise, EnterpriseVo.class);
+            conver.setToken(userToken);
+            UserHelper.login(conver);
+        }
+
         return true;
     }
 

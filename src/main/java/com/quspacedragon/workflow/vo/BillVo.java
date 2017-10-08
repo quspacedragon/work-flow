@@ -1,6 +1,9 @@
 package com.quspacedragon.workflow.vo;
 
+import com.quspacedragon.workflow.entity.ScanRecord;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.List;
 
 /**
  * Title: BillVo
@@ -47,6 +50,10 @@ public class BillVo {
      */
     @ApiModelProperty(value = "处理序列")
     private String processOrder;
+    @ApiModelProperty(value = "企业信息")
+    private EnterpriseVo enterpriseVo;
+    @ApiModelProperty(value = "操作记录")
+    private List<ScanRecord> scanRecords;
 
     public String getBillNo() {
         return billNo;
@@ -126,5 +133,21 @@ public class BillVo {
 
     public void setProcessOrder(String processOrder) {
         this.processOrder = processOrder;
+    }
+
+    public EnterpriseVo getEnterpriseVo() {
+        return enterpriseVo;
+    }
+
+    public void setEnterpriseVo(EnterpriseVo enterpriseVo) {
+        this.enterpriseVo = enterpriseVo;
+    }
+
+    public List<ScanRecord> getScanRecords() {
+        return scanRecords;
+    }
+
+    public void setScanRecords(List<ScanRecord> scanRecords) {
+        this.scanRecords = scanRecords;
     }
 }

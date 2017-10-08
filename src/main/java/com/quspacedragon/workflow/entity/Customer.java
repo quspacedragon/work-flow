@@ -34,6 +34,10 @@ public class Customer extends BaseEntity<Customer> {
     private String phone;
     @TableField("enterprise_id")
     private Long enterpriseId;
+    @TableField("login_name")
+    private String loginName;
+    @TableField("login_pwd")
+    private String loginPwd;
 
 
     public String getCustomerNo() {
@@ -92,6 +96,23 @@ public class Customer extends BaseEntity<Customer> {
 
     public void setEnterpriseId(Long enterpriseId) {
         this.enterpriseId = enterpriseId;
+    }
+
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getLoginPwd() {
+        return loginPwd;
+    }
+
+    public void setLoginPwd(String loginPwd) {
+        this.loginPwd = loginPwd;
     }
 
     @Override

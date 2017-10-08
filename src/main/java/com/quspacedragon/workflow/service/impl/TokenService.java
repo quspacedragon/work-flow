@@ -24,19 +24,21 @@ public class TokenService extends ServiceImpl<TokenMapper, Token> implements ITo
      * @param userId
      * @return
      */
-    public Token findValidToken(Long userId, String tokenValue) {
+    public Token findValidToken(Long userId, String tokenValue, int type) {
         Token token = new Token();
         token.setEnterpriseId(userId);
         token.setToken(tokenValue);
+        token.setType(type);
         EntityWrapper<Token> tokenEntityWrapper = new EntityWrapper<Token>();
         tokenEntityWrapper.setEntity(token);
         tokenEntityWrapper.gt(true, Token.EXPIRED_TIME, System.currentTimeMillis());
         return selectOne(tokenEntityWrapper);
     }
 
-    public Token findByEnterpriseId(Long userId) {
+    public Token findByEnterpriseId(Long userId, int type) {
         Token token = new Token();
         token.setEnterpriseId(userId);
+        token.setType(type);
         EntityWrapper<Token> tokenEntityWrapper = new EntityWrapper<Token>();
         tokenEntityWrapper.setEntity(token);
         return selectOne(tokenEntityWrapper);

@@ -24,6 +24,7 @@ public class CustomerVo extends BaseVo {
     private String phone;
     @ApiModelProperty(value = "企业id")
     private Long enterpriseId;
+    private String token;
 
     public String getCustomerNo() {
         return customerNo;
@@ -71,5 +72,13 @@ public class CustomerVo extends BaseVo {
 
     public void setEnterpriseId(Long enterpriseId) {
         this.enterpriseId = enterpriseId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
