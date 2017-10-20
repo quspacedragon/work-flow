@@ -22,7 +22,7 @@ public class NoUtils {
 
 
     public static String createBillNo(String customerNo, Long billId) throws Exception {
-        String billNo = fill(billId, CUSTOMER_NO_LENGTH);
+        String billNo = fill(billId, BILL_NO_LENGTH);
         return customerNo + billNo;
     }
 

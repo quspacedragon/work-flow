@@ -24,11 +24,11 @@ public class Bill extends BaseEntity<Bill> {
     /**
      * 品种
      */
-    private Long varieties;
+    private String varieties;
     /**
      * 颜色
      */
-    private Long color;
+    private String color;
     /**
      * 拆包人
      */
@@ -51,6 +51,8 @@ public class Bill extends BaseEntity<Bill> {
     private Long customerId;
     @TableField("goods_id")
     private Long goodsId;
+
+    private String memo;
 
 
     public static long getSerialVersionUID() {
@@ -81,19 +83,19 @@ public class Bill extends BaseEntity<Bill> {
         this.vatNo = vatNo;
     }
 
-    public Long getVarieties() {
+    public String getVarieties() {
         return varieties;
     }
 
-    public void setVarieties(Long varieties) {
+    public void setVarieties(String varieties) {
         this.varieties = varieties;
     }
 
-    public Long getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Long color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
@@ -179,6 +181,14 @@ public class Bill extends BaseEntity<Bill> {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
     @Override

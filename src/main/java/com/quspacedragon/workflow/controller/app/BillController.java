@@ -62,13 +62,15 @@ public class BillController {
     @ApiOperation(value = "订单分页查询", httpMethod = "GET", response = BillVo.class, notes = "查询")
     public Result<Page<BillVo>> list(@ApiParam(name = "current", value = "页码", required = false, defaultValue = "0") @RequestParam(defaultValue = "0") Integer current,
                                      @ApiParam(name = "pageSize", value = "每页条数", required = false, defaultValue = "10") @RequestParam(defaultValue = "10") Integer pageSize,
-                                     @ApiParam(name = "enterpriseId", value = "企业id", required = false) @RequestParam Long enterpriseId,
-                                     @ApiParam(name = "startTime", value = "开始时间，unix时间戳", required = false) @RequestParam Long startTime,
-                                     @ApiParam(name = "endTime", value = "结束时间，unix时间戳", required = false) @RequestParam Long endTime) {
+                                     @ApiParam(name = "enterpriseId", value = "企业id", required = false) @RequestParam(required = false) Long enterpriseId,
+                                     @ApiParam(name = "goodsId", value = "货物id", required = false) @RequestParam(required = false) Long goodsId,
+                                     @ApiParam(name = "startTime", value = "开始时间，unix时间戳", required = false) @RequestParam(required = false) Long startTime,
+                                     @ApiParam(name = "endTime", value = "结束时间，unix时间戳", required = false) @RequestParam(required = false) Long endTime) {
         CustomerVo appUser = UserHelper.getAppUser();
         Bill bill = new Bill();
         bill.setCustomerId(appUser.getId());
         bill.setEnterpriseId(enterpriseId);
+        bill.setGoodsId(goodsId);
         EntityWrapper<Bill> entityWrapper = new EntityWrapper<>();
         entityWrapper.setEntity(bill);
         if (startTime != null) {
@@ -76,7 +78,7 @@ public class BillController {
 
         }
         if (endTime != null) {
-            entityWrapper.gt(true, "create_time", endTime);
+            entityWrapper.lt(true, "create_time", endTime);
 
         }
         Page staffPage = new Page<>();

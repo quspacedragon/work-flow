@@ -35,7 +35,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     static {
         filterSet.add("/login");
+        filterSet.add("/app/login");
         filterSet.add("/swagger-ui.html");
+        filterSet.add("/v2/api-docs");
+        filterSet.add("/configuration/ui");
+
     }
 
     @Override
@@ -65,6 +69,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 type = LoginUserTypeEnum.CUSTOMER.getType();
             } else {
                 String typeParam = request.getParameter("type");
+                if (typeParam == null) {
+                    print(response,
+                            ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "type参数缺失"));
+                    return false;
+                }
                 type = Integer.parseInt(typeParam);
             }
             userId = Long.parseLong(userIdParam);
@@ -91,9 +100,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
         } catch (Exception e) {
-            log.error("error", e);
+            log.error("错误", e);
             print(response,
-                    ApiResultUtils.failResult(HttpStatus.BAD_REQUEST.ordinal(), "参数错误"));
+                    ApiResultUtils.failResult(HttpStatus.BAD_REQUEST.ordinal(), "参数错误:" + e.getMessage()));
             return false;
         }
         if (type == LoginUserTypeEnum.CUSTOMER.getType()) {

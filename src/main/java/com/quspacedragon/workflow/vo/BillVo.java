@@ -14,7 +14,7 @@ import java.util.List;
  * @version V1.0
  * @since 2017/9/28
  */
-public class BillVo {
+public class BillVo extends BaseVo {
     @ApiModelProperty(value = "订单编号")
     private String billNo;
     @ApiModelProperty(value = "重量")
@@ -25,12 +25,12 @@ public class BillVo {
      * 品种
      */
     @ApiModelProperty(value = "品种")
-    private Integer varieties;
+    private String varieties;
     /**
      * 颜色
      */
     @ApiModelProperty(value = "颜色")
-    private Integer color;
+    private String color;
     /**
      * 拆包人
      */
@@ -42,9 +42,9 @@ public class BillVo {
     @ApiModelProperty(value = "数量")
     private Integer amout;
     @ApiModelProperty(value = "企业id")
-    private Integer enterpriseId;
+    private Long enterpriseId;
     @ApiModelProperty(value = "操作人id")
-    private Integer opId;
+    private Long opId;
     /**
      * 处理序列
      */
@@ -52,8 +52,20 @@ public class BillVo {
     private String processOrder;
     @ApiModelProperty(value = "企业信息")
     private EnterpriseVo enterpriseVo;
+    @ApiModelProperty(value = "客户姓名")
+    private String customerName;
+    @ApiModelProperty(value = "货物编号")
+    private String goodsNo;
+    @ApiModelProperty(value = "客户编号")
+    private String customerNo;
     @ApiModelProperty(value = "操作记录")
     private List<ScanRecord> scanRecords;
+    @ApiModelProperty(value = "备注")
+    private String memo;
+    @ApiModelProperty(value = "联系人")
+    private String cantat;
+    @ApiModelProperty(value = "联系电话")
+    private String phone;
 
     public String getBillNo() {
         return billNo;
@@ -79,19 +91,19 @@ public class BillVo {
         this.vatNo = vatNo;
     }
 
-    public Integer getVarieties() {
+    public String getVarieties() {
         return varieties;
     }
 
-    public void setVarieties(Integer varieties) {
+    public void setVarieties(String varieties) {
         this.varieties = varieties;
     }
 
-    public Integer getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Integer color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
@@ -111,19 +123,19 @@ public class BillVo {
         this.amout = amout;
     }
 
-    public Integer getEnterpriseId() {
+    public Long getEnterpriseId() {
         return enterpriseId;
     }
 
-    public void setEnterpriseId(Integer enterpriseId) {
+    public void setEnterpriseId(Long enterpriseId) {
         this.enterpriseId = enterpriseId;
     }
 
-    public Integer getOpId() {
+    public Long getOpId() {
         return opId;
     }
 
-    public void setOpId(Integer opId) {
+    public void setOpId(Long opId) {
         this.opId = opId;
     }
 
@@ -149,5 +161,53 @@ public class BillVo {
 
     public void setScanRecords(List<ScanRecord> scanRecords) {
         this.scanRecords = scanRecords;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getGoodsNo() {
+        return goodsNo;
+    }
+
+    public void setGoodsNo(String goodsNo) {
+        this.goodsNo = goodsNo;
+    }
+
+    public String getCustomerNo() {
+        return customerNo;
+    }
+
+    public void setCustomerNo(String customerNo) {
+        this.customerNo = customerNo;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getCantat() {
+        return cantat;
+    }
+
+    public void setCantat(String cantat) {
+        this.cantat = cantat;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

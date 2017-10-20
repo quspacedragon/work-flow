@@ -1,12 +1,12 @@
 package com.quspacedragon.workflow.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.quspacedragon.workflow.common.Result;
 import com.quspacedragon.workflow.common.UserHelper;
-import com.quspacedragon.workflow.entity.Dict;
 import com.quspacedragon.workflow.entity.Staff;
 import com.quspacedragon.workflow.service.IStaffService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
@@ -65,7 +65,7 @@ public class StaffController {
     @DeleteMapping("/{id}")
     @ResponseBody
     @ApiOperation(value = "员工删除", httpMethod = "DELETE", response = Boolean.class, notes = "删除")
-    public Result<Boolean> delete(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Integer id
+    public Result<Boolean> delete(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Long id
     ) {
         Staff staff = staffService.selectById(id);
         if (staff == null) {
@@ -78,14 +78,13 @@ public class StaffController {
     @PutMapping("/{id}")
     @ResponseBody
     @ApiOperation(value = "员工修改", httpMethod = "PUT", response = StaffVo.class, notes = "修改")
-    public Result<DictVo> update(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Integer id,
+    public Result<DictVo> update(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Long id,
                                  @ApiParam(name = "customerNo", value = "员工编号") String customerNo,
                                  @ApiParam(name = "customerName", value = "员工姓名") String customerName,
                                  @ApiParam(name = "shortName", value = "拼音简码") String shortName,
                                  @ApiParam(name = "loginPwd", value = "登录密码") String loginPwd,
                                  @ApiParam(name = "department", value = "所属部门") String department,
                                  @ApiParam(name = "phone", value = "手机") String phone) {
-        Dict dict = new Dict();
         Staff staff = staffService.selectById(id);
         if (staff == null) {
             return ApiResultUtils.failResult(HttpStatus.NO_CONTENT.ordinal(), "员工不存在");
@@ -103,7 +102,7 @@ public class StaffController {
     @GetMapping("/{id}")
     @ResponseBody
     @ApiOperation(value = "员工查询", httpMethod = "GET", response = StaffVo.class, notes = "查询")
-    public Result<DictVo> get(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Integer id) {
+    public Result<DictVo> get(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Long id) {
         Staff staff = staffService.selectById(id);
         if (staff == null) {
             return ApiResultUtils.failResult(HttpStatus.NO_CONTENT.ordinal(), "员工不存在");
@@ -116,10 +115,9 @@ public class StaffController {
     @ApiOperation(value = "员工分页查询", httpMethod = "GET", response = StaffVo.class, notes = "查询")
     public Result<Page<StaffVo>> list(@ApiParam(name = "current", value = "页码", required = false, defaultValue = "0") @RequestParam(defaultValue = "0") Integer current,
                                       @ApiParam(name = "pageSize", value = "每页条数", required = false, defaultValue = "10") @RequestParam(defaultValue = "10") Integer pageSize) {
-        Page staffPage = new Page<>();
-        staffPage.setCurrent(current);
-        staffPage.setSize(pageSize);
+        Page staffPage = new Page<>(current, pageSize);
         staffPage = staffService.selectPage(staffPage);
+        staffPage.setTotal(staffService.selectCount(new EntityWrapper<>(new Staff())));
         ImmutableList immutableList = FluentIterable.from(staffPage.getRecords()).transform(r -> ConverUtils.conver(r, StaffVo.class)).toList();
         staffPage.setRecords(immutableList);
         return ApiResultUtils.successResult(staffPage);

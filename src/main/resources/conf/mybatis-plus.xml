@@ -41,7 +41,7 @@
         <property name="sqlInjector" ref="logicSqlInjector"/>
         <property name="logicDeleteValue" value="0"/>
         <property name="logicNotDeleteValue" value="1"/>
-        <property name="idType" value="2"/>
+        <property name="idType" value="0"/>
         <!-- 公共字段填充处理器 -->
         <property name="metaObjectHandler" ref="myMetaObjectHandler"/>
     </bean>

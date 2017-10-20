@@ -1,5 +1,6 @@
 package com.quspacedragon.workflow.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.quspacedragon.workflow.common.UserHelper;
 import com.quspacedragon.workflow.entity.Bill;
@@ -26,10 +27,10 @@ public class BillService extends ServiceImpl<BillMapper, Bill> implements IBillS
     @Resource
     private CustomerMapper customerMapper;
 
+    @Override
     public Long createBill(Bill bill) throws Exception {
         try {
             EnterpriseVo user = UserHelper.getUser();
-            bill.setEnterpriseId(user.getId());
             bill.setEnterpriseId(user.getId());
             insert(bill);
             Customer customer = customerMapper.selectById(bill.getCustomerId());
@@ -43,4 +44,11 @@ public class BillService extends ServiceImpl<BillMapper, Bill> implements IBillS
         }
     }
 
+    @Override
+    public int countUnComplete(long goodsId) {
+        Bill bill = new Bill();
+        bill.setGoodsId(goodsId);
+        bill.setType(0);
+        return selectCount(new EntityWrapper<>(bill));
+    }
 }

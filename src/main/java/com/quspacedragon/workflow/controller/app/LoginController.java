@@ -18,9 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -79,6 +77,17 @@ public class LoginController {
         Token token = tokenService.findByEnterpriseId(user.getId(), LoginUserTypeEnum.CUSTOMER.getType());
         tokenService.deleteById(token.getId());
         UserHelper.loginOut();
+        return ApiResultUtils.successResult(true);
+    }
+
+    @PutMapping("/deviceBind")
+    @ResponseBody
+    @ApiOperation(value = "绑定设备", httpMethod = "PUT", response = Boolean.class, notes = "设备绑定")
+    public Result<Boolean> deviceBind(@ApiParam(name = "deviceToken", value = "设备token", required = true) @RequestParam(required = true) String deviceToken) {
+        CustomerVo user = UserHelper.getAppUser();
+        Customer customer = customerService.selectById(user.getId());
+        customer.setDeviceToken(deviceToken);
+        customerService.updateById(customer);
         return ApiResultUtils.successResult(true);
     }
 }

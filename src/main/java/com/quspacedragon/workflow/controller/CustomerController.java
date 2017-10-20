@@ -1,6 +1,7 @@
 package com.quspacedragon.workflow.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
@@ -63,7 +64,7 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     @ResponseBody
     @ApiOperation(value = "商户删除", httpMethod = "DELETE", response = Boolean.class, notes = "删除")
-    public Result<Boolean> delete(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Integer id) {
+    public Result<Boolean> delete(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Long id) {
         customerService.deleteById(id);
         return ApiResultUtils.successResult(true);
     }
@@ -71,7 +72,7 @@ public class CustomerController {
     @PutMapping("/{id}")
     @ResponseBody
     @ApiOperation(value = "商户修改", httpMethod = "PUT", response = CustomerVo.class, notes = "修改")
-    public Result<CustomerVo> update(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Integer id,
+    public Result<CustomerVo> update(@ApiParam(name = "id", value = "主键id") @PathVariable("id") Long id,
                                      @ApiParam(name = "customerName", value = "商户名称") String customerName,
                                      @ApiParam(name = "contat", value = "联系人") String contat,
                                      @ApiParam(name = "phone", value = "联系电话") String phone,
@@ -100,10 +101,9 @@ public class CustomerController {
     @ApiOperation(value = "商户分页查询", httpMethod = "GET", response = CustomerVo.class, notes = "查询")
     public Result<Page<CustomerVo>> list(@ApiParam(name = "current", value = "页码", required = false, defaultValue = "0") @RequestParam(defaultValue = "0") Integer current,
                                          @ApiParam(name = "pageSize", value = "每页条数", required = false, defaultValue = "10") @RequestParam(defaultValue = "10") Integer pageSize) {
-        Page staffPage = new Page<>();
-        staffPage.setCurrent(current);
-        staffPage.setSize(pageSize);
+        Page staffPage = new Page<>(current, pageSize);
         staffPage = customerService.selectPage(staffPage);
+        staffPage.setTotal(customerService.selectCount(new EntityWrapper<>(new Customer())));
         ImmutableList immutableList = FluentIterable.from(staffPage.getRecords()).transform(r -> ConverUtils.conver(r, CustomerVo.class)).toList();
         staffPage.setRecords(immutableList);
         return ApiResultUtils.successResult(staffPage);

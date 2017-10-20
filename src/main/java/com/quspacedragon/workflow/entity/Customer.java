@@ -38,6 +38,10 @@ public class Customer extends BaseEntity<Customer> {
     private String loginName;
     @TableField("login_pwd")
     private String loginPwd;
+    @TableField("device_token")
+    private String deviceToken;
+    @TableField("can_push")
+    private Boolean canPush;
 
 
     public String getCustomerNo() {
@@ -113,6 +117,22 @@ public class Customer extends BaseEntity<Customer> {
 
     public void setLoginPwd(String loginPwd) {
         this.loginPwd = loginPwd;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
+    public Boolean getCanPush() {
+        return canPush;
+    }
+
+    public void setCanPush(Boolean canPush) {
+        this.canPush = canPush;
     }
 
     @Override

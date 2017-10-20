@@ -8,7 +8,7 @@ logging:
 
 druid:
     driver-class: com.mysql.jdbc.Driver
-    url: jdbc:mysql://101.132.66.101:3306/work_flow
+    url: jdbc:mysql://101.132.66.101:3306/work_flow?useUnicode=true&characterEncoding=utf-8
     username: root
     password: quspacedragon@123!&*
     initial-size: 1
@@ -41,3 +41,7 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+umen:
+    appkey: 59dcde4cb27b0a77c1001057
+    message-secret: 7f019eabf5ba703acaf050f3f1759dba
+    app-master-secret: h1jqsjymlllrlvsiorkneeweqtg6q62a

@@ -2,15 +2,20 @@ package com.quspacedragon.workflow.conf;
 
 
 import com.quspacedragon.workflow.interceptor.LoginInterceptor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.List;
 
 
 @Configuration
@@ -28,8 +33,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 //添加需要验证登录用户操作权限的请求
-                .addPathPatterns("/*")
-        //排除不需要验证登录用户操作权限的请求
+                .addPathPatterns("/**")
+                //排除不需要验证登录用户操作权限的请求
                 .excludePathPatterns("/swagger*");
     }
 
@@ -46,20 +51,40 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registrationBean.setOrder(1);
         return registrationBean;
     }
-/**
- * 过滤器
- */
-//    @Bean
-//    public FilterRegistrationBean getDemoFilter(){
-//        DemoFilter demoFilter=new DemoFilter();
-//        FilterRegistrationBean registrationBean=new FilterRegistrationBean();
-//        registrationBean.setFilter(demoFilter);
-//        List<String> urlPatterns=new ArrayList<String>();
-//        urlPatterns.add("/*");//拦截路径，可以添加多个
-//        registrationBean.setUrlPatterns(urlPatterns);
-//        registrationBean.setOrder(1);
-//        return registrationBean;
-//    }
+
+    /**
+     * 过滤器
+     */
+    @Bean
+    public FilterRegistrationBean getDemoFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.setFilter(new HttpPutFormContentFilter());
+        List<String> urlPatterns = new ArrayList<String>();
+        //拦截路径，可以添加多个
+        urlPatterns.add("/*");
+        registrationBean.setUrlPatterns(urlPatterns);
+        registrationBean.setOrder(2);
+
+
+        return registrationBean;
+    }
+
+    /**
+     * 过滤器
+     */
+    @Bean
+    public FilterRegistrationBean characterEncodingFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter("UTF-8", true);
+        registrationBean.setFilter(characterEncodingFilter);
+
+        List<String> urlPatterns = new ArrayList<String>();
+        //拦截路径，可以添加多个
+        urlPatterns.add("/*");
+        registrationBean.setUrlPatterns(urlPatterns);
+        registrationBean.setOrder(1);
+        return registrationBean;
+    }
 //    @Bean
 //    public ServletRegistrationBean getDemoServlet(){
 //        DemoServlet demoServlet=new DemoServlet();
