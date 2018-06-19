@@ -15,19 +15,19 @@ import java.util.Map;
  * @version V1.0
  * @since 2018/5/28
  */
-public class ApLogFormat {
+public class LogFormat {
     private String title;
     private Map<String, Object> map = new HashMap();
 
-    public ApLogFormat(String title) {
+    public LogFormat(String title) {
         this.title = title;
     }
 
-    public static ApLogFormat init(String title) {
-        return new ApLogFormat(title);
+    public static LogFormat init(String title) {
+        return new LogFormat(title);
     }
 
-    public ApLogFormat add(String key, Object v) {
+    public LogFormat add(String key, Object v) {
         this.map.put(key, v);
         return this;
     }
