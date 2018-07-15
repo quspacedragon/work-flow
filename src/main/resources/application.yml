@@ -47,8 +47,8 @@ pagehelper:
 debug: true
 wechat:
   miniapp:
-    appid: 111
-    secret: 111
-    token: 111
-    aesKey: 111
+    appid:  wxb23daf04227fcb9e
+    secret: 568c028aa04377141e504444a3ab7091
+    token: spacedragon
+    aesKey: spacedragon123
     msgDataFormat: JSON
