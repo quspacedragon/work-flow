@@ -5,6 +5,8 @@ server:
 logging:
     level:
         tk.mybatis: TRACE
+        org.springframework.web: DEBUG
+        com.github.binarywang.demo.wx.miniapp: DEBUG
 
 druid:
     driver-class: com.mysql.jdbc.Driver
@@ -41,3 +43,12 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+
+debug: true
+wechat:
+  miniapp:
+    appid: 111
+    secret: 111
+    token: 111
+    aesKey: 111
+    msgDataFormat: JSON

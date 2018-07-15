@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.quspacedragon.workflow.mapper.UserMapper">
+<mapper namespace="com.quspacedragon.workflow.mapper.LotteryPriceMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.User">
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.LotteryPrice">
 	<result column="id" property="id" />
 	<result column="is_valid" property="isValid" />
 	<result column="op_time" property="opTime" />
@@ -11,8 +11,11 @@
 	<result column="status" property="status" />
 	<result column="type" property="type" />
 	<result column="attribute" property="attribute" />
-	<result column="create_time" property="createTime" />
 		<result column="name" property="name" />
+		<result column="total_num" property="totalNum" />
+		<result column="remain_num" property="remainNum" />
+		<result column="probability" property="probability" />
+		<result column="createTime" property="createTime" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
@@ -24,8 +27,7 @@
 	status,
 	type,
 	attribute,
-	create_time AS createTime,
-        name
+        name, total_num AS totalNum, remain_num AS remainNum, probability, createTime
     </sql>
 
 </mapper>

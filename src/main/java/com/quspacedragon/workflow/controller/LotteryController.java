@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
  * </p>
  *
  * @author quspacedragon
- * @since 2017-09-20
+ * @since 2018-07-15
  */
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/lottery")
+public class LotteryController {
 	
 }
