@@ -11,6 +11,7 @@
 	<result column="status" property="status" />
 	<result column="type" property="type" />
 	<result column="attribute" property="attribute" />
+		<result column="perMaxNum" property="perMaxNum" />
 		<result column="name" property="name" />
 		<result column="start_time" property="startTime" />
 		<result column="end_time" property="endTime" />

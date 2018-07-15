@@ -17,7 +17,7 @@ import com.baomidou.mybatisplus.enums.FieldFill;
  */
 public abstract class BaseEntity<T extends Model> extends Model<T> {
     private static final long serialVersionUID = 1L;
-    protected Long id;
+    protected String id;
     @TableField(value = "is_valid", fill = FieldFill.INSERT)
     @TableLogic
     protected Integer isValid;
@@ -33,11 +33,11 @@ public abstract class BaseEntity<T extends Model> extends Model<T> {
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     protected Long createTime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

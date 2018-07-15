@@ -10,9 +10,9 @@ logging:
 
 druid:
     driver-class: com.mysql.jdbc.Driver
-    url: jdbc:mysql://101.132.66.101:3306/work_flow
+    url: jdbc:mysql://39.104.134.111:3306/school
     username: root
-    password: quspacedragon@123!&*
+    password: uAiqwVwjJ8-i
     initial-size: 1
     min-idle: 1
     max-active: 20
