@@ -169,6 +169,18 @@ public class LotteryController {
     }
 
 
+    @ApiOperation(value = "奖励列表")
+    @RequestMapping(value = "/lottery_list", method = RequestMethod.GET)
+    public Result price(
+            @RequestParam(name = "lotteryActivityId", required = true) String lotteryActivityId
+    ) {
+        LotteryPrice lotteryPrice = new LotteryPrice();
+        lotteryPrice.setLotteryId(lotteryActivityId);
+        List<LotteryPrice> lotteryPrices = lotteryPriceService.selectList(new EntityWrapper<>(lotteryPrice));
+        return ApiResultUtils.successResult(lotteryPrices);
+    }
+
+
     /**
      * 抽奖
      *
