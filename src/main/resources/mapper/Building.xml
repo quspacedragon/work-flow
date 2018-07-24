@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quspacedragon.workflow.mapper.BuildingMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.Building">
+	<result column="id" property="id" />
+	<result column="is_valid" property="isValid" />
+	<result column="op_time" property="opTime" />
+	<result column="last_ver" property="lastVer" />
+	<result column="status" property="status" />
+	<result column="type" property="type" />
+	<result column="attribute" property="attribute" />
+		<result column="name" property="name" />
+		<result column="code" property="code" />
+		<result column="area" property="area" />
+		<result column="underground_num" property="undergroundNum" />
+		<result column="floor_num" property="floorNum" />
+		<result column="has_unit" property="hasUnit" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+	id,
+	is_valid AS isValid,
+	op_time AS opTime,
+	last_ver AS lastVer,
+	status,
+	type,
+	attribute,
+        name, code, area, underground_num AS undergroundNum, floor_num AS floorNum, has_unit AS hasUnit, createTime
+    </sql>
+
+</mapper>

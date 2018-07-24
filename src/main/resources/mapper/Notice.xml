@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quspacedragon.workflow.mapper.NoticeMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.Notice">
+	<result column="id" property="id" />
+	<result column="is_valid" property="isValid" />
+	<result column="op_time" property="opTime" />
+	<result column="last_ver" property="lastVer" />
+	<result column="status" property="status" />
+	<result column="type" property="type" />
+	<result column="attribute" property="attribute" />
+		<result column="create_admind_id" property="createAdmindId" />
+		<result column="title" property="title" />
+		<result column="level" property="level" />
+		<result column="view_num" property="viewNum" />
+		<result column="url" property="url" />
+		<result column="project_id" property="projectId" />
+		<result column="building_id" property="buildingId" />
+		<result column="unit_id" property="unitId" />
+		<result column="content" property="content" />
+		<result column="activity_id" property="activityId" />
+		<result column="phone" property="phone" />
+		<result column="memo" property="memo" />
+		<result column="send_time" property="sendTime" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+	id,
+	is_valid AS isValid,
+	op_time AS opTime,
+	last_ver AS lastVer,
+	status,
+	type,
+	attribute,
+        create_admind_id AS createAdmindId, title, level, view_num AS viewNum, url, project_id AS projectId, building_id AS buildingId, unit_id AS unitId, content, activity_id AS activityId, phone, memo, send_time AS sendTime, createTime
+    </sql>
+
+</mapper>

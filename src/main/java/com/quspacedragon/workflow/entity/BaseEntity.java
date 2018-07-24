@@ -33,6 +33,8 @@ public abstract class BaseEntity<T extends Model> extends Model<T> {
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     protected Long createTime;
 
+    public static final String TYPE = "type";
+
     public String getId() {
         return id;
     }

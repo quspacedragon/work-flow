@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quspacedragon.workflow.mapper.MenuMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.Menu">
+	<result column="id" property="id" />
+	<result column="is_valid" property="isValid" />
+	<result column="op_time" property="opTime" />
+	<result column="last_ver" property="lastVer" />
+	<result column="status" property="status" />
+	<result column="type" property="type" />
+	<result column="attribute" property="attribute" />
+		<result column="menu_name" property="menuName" />
+		<result column="order" property="order" />
+		<result column="url" property="url" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+	id,
+	is_valid AS isValid,
+	op_time AS opTime,
+	last_ver AS lastVer,
+	status,
+	type,
+	attribute,
+        menu_name AS menuName, order, url, createTime
+    </sql>
+
+</mapper>

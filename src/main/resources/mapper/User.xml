@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quspacedragon.workflow.mapper.UserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.User">
+	<result column="id" property="id" />
+	<result column="type" property="type" />
+	<result column="is_valid" property="isValid" />
+	<result column="op_time" property="opTime" />
+	<result column="last_ver" property="lastVer" />
+	<result column="status" property="status" />
+	<result column="attribute" property="attribute" />
+		<result column="phone" property="phone" />
+		<result column="pass_word" property="passWord" />
+		<result column="name" property="name" />
+		<result column="property" property="property" />
+		<result column="room_id" property="roomId" />
+		<result column="move_in_time" property="moveInTime" />
+		<result column="can_free" property="canFree" />
+		<result column="card_type" property="cardType" />
+		<result column="card_no" property="cardNo" />
+		<result column="sex" property="sex" />
+		<result column="address" property="address" />
+		<result column="country" property="country" />
+		<result column="ethnic" property="ethnic" />
+		<result column="census" property="census" />
+		<result column="birthday" property="birthday" />
+		<result column="create_admin_id" property="createAdminId" />
+		<result column="create_memo" property="createMemo" />
+		<result column="intermediary_company" property="intermediaryCompany" />
+		<result column="lease_start_time" property="leaseStartTime" />
+		<result column="lease_end_time" property="leaseEndTime" />
+		<result column="plan_out_time" property="planOutTime" />
+		<result column="user_type" property="userType" />
+		<result column="parent_id" property="parentId" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+	id,
+	type,
+	is_valid AS isValid,
+	op_time AS opTime,
+	last_ver AS lastVer,
+	status,
+	attribute,
+        phone, pass_word AS passWord, name, property, room_id AS roomId, move_in_time AS moveInTime, can_free AS canFree, card_type AS cardType, card_no AS cardNo, sex, address, country, ethnic, census, birthday, create_admin_id AS createAdminId, create_memo AS createMemo, intermediary_company AS intermediaryCompany, lease_start_time AS leaseStartTime, lease_end_time AS leaseEndTime, plan_out_time AS planOutTime, user_type AS userType, parent_id AS parentId, createTime
+    </sql>
+
+</mapper>

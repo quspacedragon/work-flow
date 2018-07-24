@@ -68,7 +68,7 @@ public class MysqlGenerator {
                         .setDriverName("com.mysql.jdbc.Driver")
                         .setUsername("root")
                         .setPassword("uAiqwVwjJ8-i")
-                        .setUrl("jdbc:mysql://39.104.134.111:3306/school?characterEncoding=utf8")
+                        .setUrl("jdbc:mysql://39.104.134.111:3306/pms?characterEncoding=utf8")
         ).setStrategy(
                 // 策略配置
                 new StrategyConfig()
@@ -76,9 +76,10 @@ public class MysqlGenerator {
                         // .setDbColumnUnderline(true)//全局下划线命名
                         .setTablePrefix(new String[]{"bmd_", "mp_"})// 此处可以修改为您的表前缀
                         .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
-                         .setInclude(new String[] { "lottery","lottery_price","lottery_record","win_record" }) // 需要生成的表
-                        // .setExclude(new String[]{"test"}) // 排除生成的表
+                         .setInclude(new String[] {"token","sms_record"}) // 需要生成的表
+//                         .setExclude(new String[]{"order"}) // 排除生成的表
                         // 自定义实体父类
+
                          .setSuperEntityClass("com.quspacedragon.workflow.entity.BaseEntity")
                         // 自定义实体，公共字段
                         .setSuperEntityColumns(new String[]{"id","is_valid","op_time","last_ver","status","type","attribute","create_time"})
