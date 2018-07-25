@@ -12,7 +12,8 @@ package com.quspacedragon.workflow.exception;
 public enum ExceptionEnum {
     UNKNOW_ERROR(-1, "未知错误"),
     USER_NOT_FIND(-101, "用户不存在"),
-    TOKEN_EXPIRE(1, "token过期"),;
+    TOKEN_EXPIRE(1, "token过期"),
+    PHONE_NOT_NULL(401, "手机号不能为空"),;
 
     private Integer code;
 

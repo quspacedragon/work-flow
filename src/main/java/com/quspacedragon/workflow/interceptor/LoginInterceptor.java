@@ -74,6 +74,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             } else {
                 return true;
             }
+            request.setAttribute(LoginHelper.LOGIN_TYPE, type);
             userId = Convert.asInt(userIdParam);
             if (userToken == null) {
                 print(response,
@@ -86,6 +87,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
             boolean islogin = loginHelper.islogin(userId, userToken, type);
+
             if (islogin) {
                 return true;
             }

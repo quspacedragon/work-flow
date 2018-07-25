@@ -33,6 +33,17 @@ public class BizException extends RuntimeException {
         this.code = code;
     }
 
+    /**
+     * 自定义错误信息
+     *
+     * @param message
+     * @param code
+     */
+    public BizException(String message) {
+        super(message);
+        this.code = ExceptionEnum.UNKNOW_ERROR.getCode();
+    }
+
     public Integer getCode() {
         return code;
     }
