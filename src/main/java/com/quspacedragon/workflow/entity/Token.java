@@ -33,7 +33,6 @@ public class Token extends BaseEntity<Token> {
      */
 	@TableField("expired_time")
 	private Date expiredTime;
-	private Long createTime;
 
 
 	public String getToken() {
@@ -68,14 +67,6 @@ public class Token extends BaseEntity<Token> {
 		this.expiredTime = expiredTime;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
-
 	public static final String TOKEN = "token";
 
 	public static final String USER_ID = "user_id";
@@ -84,7 +75,6 @@ public class Token extends BaseEntity<Token> {
 
 	public static final String EXPIRED_TIME = "expired_time";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

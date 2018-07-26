@@ -23,7 +23,6 @@ public class Job extends BaseEntity<Job> {
 	@TableField("parent_id")
 	private Integer parentId;
 	private String memo;
-	private Long createTime;
 
 
 	public String getName() {
@@ -50,13 +49,7 @@ public class Job extends BaseEntity<Job> {
 		this.memo = memo;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String NAME = "name";
 
@@ -64,7 +57,6 @@ public class Job extends BaseEntity<Job> {
 
 	public static final String MEMO = "memo";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

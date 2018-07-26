@@ -28,7 +28,6 @@ public class SmsRecord extends BaseEntity<SmsRecord> {
      */
 	@TableField("is_expired")
 	private Integer isExpired;
-	private Long createTime;
 
 
 	public String getPhone() {
@@ -55,13 +54,7 @@ public class SmsRecord extends BaseEntity<SmsRecord> {
 		this.isExpired = isExpired;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String PHONE = "phone";
 
@@ -69,7 +62,6 @@ public class SmsRecord extends BaseEntity<SmsRecord> {
 
 	public static final String IS_EXPIRED = "is_expired";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

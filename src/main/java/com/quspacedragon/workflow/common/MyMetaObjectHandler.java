@@ -15,7 +15,6 @@ import org.apache.ibatis.reflection.MetaObject;
 public class MyMetaObjectHandler extends MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        System.out.println(metaObject);
         Object isValid = getFieldValByName("isValid", metaObject);//mybatis-plus版本2.0.9+
         if (isValid == null) {
             setFieldValByName("isValid", 1, metaObject);//mybatis-plus版本2.0.9+

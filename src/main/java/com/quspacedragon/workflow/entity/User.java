@@ -103,7 +103,6 @@ public class User extends BaseEntity<User> {
      */
     @TableField("parent_id")
     private Integer parentId;
-    private Long createTime;
 
     private String token;
 
@@ -292,13 +291,6 @@ public class User extends BaseEntity<User> {
         this.parentId = parentId;
     }
 
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
 
     public static final String PHONE = "phone";
 
@@ -346,7 +338,6 @@ public class User extends BaseEntity<User> {
 
     public static final String PARENT_ID = "parent_id";
 
-    public static final String CREATETIME = "createTime";
 
     public String getToken() {
         return token;

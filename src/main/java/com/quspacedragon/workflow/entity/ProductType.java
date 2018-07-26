@@ -40,7 +40,6 @@ public class ProductType extends BaseEntity<ProductType> {
     @ApiModelProperty("编码")
     @NotNull
     private String code;
-    private Long createTime;
 
 
     public String getName() {
@@ -75,13 +74,6 @@ public class ProductType extends BaseEntity<ProductType> {
         this.code = code;
     }
 
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
 
     public static final String NAME = "name";
 
@@ -90,8 +82,6 @@ public class ProductType extends BaseEntity<ProductType> {
     public static final String MEMO = "memo";
 
     public static final String CODE = "code";
-
-    public static final String CREATETIME = "createTime";
 
     @Override
     protected Serializable pkVal() {

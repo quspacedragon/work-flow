@@ -25,7 +25,6 @@ public class RoleMenu extends BaseEntity<RoleMenu> {
 	private Integer roleId;
 	@TableField("menu_id")
 	private Integer menuId;
-	private Long createTime;
 
 
 	public Integer getRoleId() {
@@ -44,19 +43,12 @@ public class RoleMenu extends BaseEntity<RoleMenu> {
 		this.menuId = menuId;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String ROLE_ID = "role_id";
 
 	public static final String MENU_ID = "menu_id";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

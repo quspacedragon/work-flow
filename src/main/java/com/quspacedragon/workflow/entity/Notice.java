@@ -46,7 +46,6 @@ public class Notice extends BaseEntity<Notice> {
 	private String memo;
 	@TableField("send_time")
 	private Date sendTime;
-	private Long createTime;
 
 
 	public Integer getCreateAdmindId() {
@@ -153,13 +152,6 @@ public class Notice extends BaseEntity<Notice> {
 		this.sendTime = sendTime;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String CREATE_ADMIND_ID = "create_admind_id";
 
@@ -187,7 +179,6 @@ public class Notice extends BaseEntity<Notice> {
 
 	public static final String SEND_TIME = "send_time";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

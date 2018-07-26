@@ -10,7 +10,7 @@ logging:
 
 druid:
     driver-class: com.mysql.jdbc.Driver
-    url: jdbc:mysql://39.104.134.111:3306/school
+    url: jdbc:mysql://39.104.134.111:3306/pms
     username: root
     password: uAiqwVwjJ8-i
     initial-size: 1

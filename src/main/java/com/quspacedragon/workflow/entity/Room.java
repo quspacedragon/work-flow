@@ -51,7 +51,6 @@ public class Room extends BaseEntity<Room> {
 	@TableField("product_type_Id")
 	private Integer productTypeId;
 	private Integer memo;
-	private Long createTime;
 
 
 	public Integer getBuildingId() {
@@ -126,13 +125,7 @@ public class Room extends BaseEntity<Room> {
 		this.memo = memo;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String BUILDING_ID = "building_id";
 
@@ -152,7 +145,6 @@ public class Room extends BaseEntity<Room> {
 
 	public static final String MEMO = "memo";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

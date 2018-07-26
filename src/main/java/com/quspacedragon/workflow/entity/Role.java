@@ -28,7 +28,6 @@ public class Role extends BaseEntity<Role> {
      */
 	@TableField("parent_id")
 	private Integer parentId;
-	private Long createTime;
 
 
 	public String getName() {
@@ -47,19 +46,12 @@ public class Role extends BaseEntity<Role> {
 		this.parentId = parentId;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String NAME = "name";
 
 	public static final String PARENT_ID = "parent_id";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

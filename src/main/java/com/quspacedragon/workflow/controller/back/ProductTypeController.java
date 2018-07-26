@@ -35,11 +35,11 @@ public class ProductTypeController {
     IProductTypeService productTypeService;
 
     @ApiOperation(value = "产品类型保存", response = ProductType.class)
-    @RequestMapping(value = "/v1/save", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/save", method = RequestMethod.POST)
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public Result save(@ApiParam(value = "产品类型", required = true) @RequestParam(value = "productType") ProductType productType,
+    public Result save(@ApiParam(value = "产品类型", required = true) @RequestBody(required = true) ProductType productType,
                        HttpServletRequest httpServletRequest) {
         Integer id = productType.getId();
         ProductType byCode = productTypeService.findByCode(productType.getCode());
@@ -54,7 +54,7 @@ public class ProductTypeController {
     }
 
     @ApiOperation(value = "产品类型删除", response = Result.class)
-    @RequestMapping(value = "/v1/save", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/delete", method = RequestMethod.GET)
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)

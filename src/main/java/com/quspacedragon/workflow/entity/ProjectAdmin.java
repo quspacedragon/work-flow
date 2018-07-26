@@ -25,7 +25,6 @@ public class ProjectAdmin extends BaseEntity<ProjectAdmin> {
 	private Integer projectId;
 	@TableField("admin_id")
 	private Integer adminId;
-	private Long createTime;
 
 
 	public Integer getProjectId() {
@@ -44,19 +43,12 @@ public class ProjectAdmin extends BaseEntity<ProjectAdmin> {
 		this.adminId = adminId;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String PROJECT_ID = "project_id";
 
 	public static final String ADMIN_ID = "admin_id";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

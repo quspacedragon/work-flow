@@ -40,7 +40,6 @@ public class Building extends BaseEntity<Building> {
      */
 	@TableField("has_unit")
 	private Integer hasUnit;
-	private Long createTime;
 
 
 	public String getName() {
@@ -91,13 +90,7 @@ public class Building extends BaseEntity<Building> {
 		this.hasUnit = hasUnit;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String NAME = "name";
 
@@ -111,7 +104,6 @@ public class Building extends BaseEntity<Building> {
 
 	public static final String HAS_UNIT = "has_unit";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

@@ -16,5 +16,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequestMapping("/room")
 public class RoomController {
+
+
 	
 }

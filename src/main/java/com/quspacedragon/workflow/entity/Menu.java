@@ -32,7 +32,6 @@ public class Menu extends BaseEntity<Menu> {
      * 菜单url
      */
 	private String url;
-	private Long createTime;
 
 
 	public String getMenuName() {
@@ -59,21 +58,12 @@ public class Menu extends BaseEntity<Menu> {
 		this.url = url;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
-
 	public static final String MENU_NAME = "menu_name";
 
 	public static final String ORDER = "order";
 
 	public static final String URL = "url";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

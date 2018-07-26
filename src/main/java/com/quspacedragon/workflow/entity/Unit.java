@@ -23,7 +23,6 @@ public class Unit extends BaseEntity<Unit> {
 	private Integer order;
 	@TableField("building_id")
 	private Integer buildingId;
-	private Long createTime;
 
 
 	public String getName() {
@@ -50,13 +49,6 @@ public class Unit extends BaseEntity<Unit> {
 		this.buildingId = buildingId;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String NAME = "name";
 
@@ -64,7 +56,6 @@ public class Unit extends BaseEntity<Unit> {
 
 	public static final String BUILDING_ID = "building_id";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

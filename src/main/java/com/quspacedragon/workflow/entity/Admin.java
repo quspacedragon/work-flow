@@ -33,7 +33,6 @@ public class Admin extends BaseEntity<Admin> {
      */
 	@TableField("pass_word")
 	private String passWord;
-	private Long createTime;
 
 
 	public String getPhone() {
@@ -60,13 +59,7 @@ public class Admin extends BaseEntity<Admin> {
 		this.passWord = passWord;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
 
 	public static final String PHONE = "phone";
 
@@ -74,7 +67,6 @@ public class Admin extends BaseEntity<Admin> {
 
 	public static final String PASS_WORD = "pass_word";
 
-	public static final String CREATETIME = "createTime";
 
 	@Override
 	protected Serializable pkVal() {

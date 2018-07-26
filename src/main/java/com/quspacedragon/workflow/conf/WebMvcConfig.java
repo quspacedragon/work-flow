@@ -17,11 +17,4 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 //        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
-
-    @Bean
-    public EmbeddedServletContainerFactory servletContainer() {
-        TomcatEmbeddedServletContainerFactory factory =
-                new TomcatEmbeddedServletContainerFactory();
-        return factory;
-    }
 }
