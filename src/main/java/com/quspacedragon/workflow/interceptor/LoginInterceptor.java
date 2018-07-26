@@ -2,8 +2,8 @@ package com.quspacedragon.workflow.interceptor;
 
 import com.alibaba.common.convert.Convert;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.quspacedragon.workflow.annoation.LoginIntercept;
 import com.quspacedragon.workflow.common.LoginHelper;
-import com.quspacedragon.workflow.entity.Token;
 import com.quspacedragon.workflow.enums.LoginUserTypeEnum;
 import com.quspacedragon.workflow.service.IAdminService;
 import com.quspacedragon.workflow.service.ITokenService;
@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.annotation.Resource;
@@ -54,6 +55,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     ) throws Exception {
         String requestURI = request.getRequestURI();
         if (filterSet.contains(requestURI)) return true;
+
+        //方法级SessionOption 高于class层次
+        HandlerMethod hm = (HandlerMethod) handler;
+        LoginIntercept loginIntercept = hm.getMethodAnnotation(LoginIntercept.class);
+
+        if (null == loginIntercept) {
+            loginIntercept = hm.getBean().getClass().getAnnotation(LoginIntercept.class);
+        }
+
+        if (null == loginIntercept || !loginIntercept.value()) {
+            return true;
+        }
+
 
         ApplicationContext ac1 = WebApplicationContextUtils
                 .getRequiredWebApplicationContext(request.getSession()
