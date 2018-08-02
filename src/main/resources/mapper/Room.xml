@@ -20,7 +20,8 @@
 		<result column="inside_area" property="insideArea" />
 		<result column="product_type_Id" property="productTypeId" />
 		<result column="memo" property="memo" />
-		<result column="createTime" property="createTime" />
+		<result column="business_type" property="businessType" />
+		<result column="create_time" property="createTime" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
@@ -32,7 +33,8 @@
 	status,
 	type,
 	attribute,
-        building_id AS buildingId, unit_id AS unitId, room_no AS roomNo, floor, code, area, inside_area AS insideArea, product_type_Id AS productTypeId, memo, createTime
+        building_id AS buildingId, unit_id AS unitId, room_no AS roomNo, floor, code, area, inside_area AS insideArea, product_type_Id AS productTypeId, memo, create_time as createTime,
+		business_type as businessType
     </sql>
 
 </mapper>

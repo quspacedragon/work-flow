@@ -17,4 +17,13 @@ public interface ISmsRecordService extends IService<SmsRecord> {
 
     public SmsRecord findLastSmsRecord(String phone, Integer type);
 
+    /**
+     * 验证验证码
+     *
+     * @param phone
+     * @param type
+     * @return
+     */
+    public Boolean valiade(String phone, Integer type, String code);
+
 }

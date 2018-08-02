@@ -36,7 +36,7 @@ public class BuildingController {
     IBuildingService buildingService;
 
     @ApiOperation(value = "楼栋保存", response = Building.class)
-    @RequestMapping(value = "/v1/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/save", method = {RequestMethod.GET, RequestMethod.POST})
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -54,7 +54,7 @@ public class BuildingController {
     }
 
     @ApiOperation(value = "楼栋删除", response = Result.class)
-    @RequestMapping(value = "/v1/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/delete", method = {RequestMethod.GET, RequestMethod.POST})
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -64,7 +64,7 @@ public class BuildingController {
     }
 
     @ApiOperation(value = "产品类型列表", response = Page.class)
-    @RequestMapping(value = "/v1/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/list", method = {RequestMethod.GET, RequestMethod.POST})
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)

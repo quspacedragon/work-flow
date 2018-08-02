@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.quspacedragon.workflow.entity.BaseEntity;
 import com.quspacedragon.workflow.entity.SmsRecord;
 import com.quspacedragon.workflow.enums.SmsRecordStatus;
+import com.quspacedragon.workflow.exception.BizException;
 import com.quspacedragon.workflow.mapper.SmsRecordMapper;
 import com.quspacedragon.workflow.service.ISmsRecordService;
 import com.quspacedragon.workflow.util.DateUtil;
@@ -50,5 +51,20 @@ public class SmsRecordService extends ServiceImpl<SmsRecordMapper, SmsRecord> im
         page.setSize(1);
         page = this.selectPage(page, smsRecordEntityWrapper);
         return java.util.Optional.ofNullable(page).map(r -> r.getRecords().get(0)).orElse(null);
+    }
+
+    @Override
+    public Boolean valiade(String phone, Integer type, String code) {
+        SmsRecord lastSmsRecord = findLastSmsRecord(phone, type);
+        if (lastSmsRecord == null) {
+            throw new BizException("无效的验证码");
+        }
+        lastSmsRecord.setStatus(SmsRecordStatus.userd.getSattus());
+        boolean b = this.updateById(lastSmsRecord);
+        String codeData = lastSmsRecord.getCode();
+        if (!codeData.equals(code)) {
+            throw new BizException("验证码错误");
+        }
+        return true;
     }
 }

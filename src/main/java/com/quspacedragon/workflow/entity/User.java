@@ -25,6 +25,8 @@ public class User extends BaseEntity<User> {
     @TableField("pass_word")
     private String passWord;
     private String name;
+    @TableField("contact_number")
+    private String contactNumber;
     /**
      * 1个人2企业3个体户4政府机构5其他
      */
@@ -103,6 +105,11 @@ public class User extends BaseEntity<User> {
      */
     @TableField("parent_id")
     private Integer parentId;
+
+    @TableField("move_out_time")
+    private Long moveOutTime;
+    @TableField("memo")
+    private String memo;
 
     private String token;
 
@@ -291,6 +298,13 @@ public class User extends BaseEntity<User> {
         this.parentId = parentId;
     }
 
+    public Long getMoveOutTime() {
+        return moveOutTime;
+    }
+
+    public void setMoveOutTime(Long moveOutTime) {
+        this.moveOutTime = moveOutTime;
+    }
 
     public static final String PHONE = "phone";
 
@@ -339,12 +353,28 @@ public class User extends BaseEntity<User> {
     public static final String PARENT_ID = "parent_id";
 
 
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     @Override

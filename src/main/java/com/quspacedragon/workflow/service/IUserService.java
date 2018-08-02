@@ -1,7 +1,8 @@
 package com.quspacedragon.workflow.service;
 
-import com.quspacedragon.workflow.entity.User;
 import com.baomidou.mybatisplus.service.IService;
+import com.quspacedragon.workflow.entity.User;
+import com.quspacedragon.workflow.request.UserMoveinRequest;
 
 /**
  * <p>
@@ -14,5 +15,7 @@ import com.baomidou.mybatisplus.service.IService;
 public interface IUserService extends IService<User> {
 
     public User findByPhone(String phone);
+
+    public Boolean moveIn(UserMoveinRequest userMoveinRequest);
 
 }
