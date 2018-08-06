@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.Version;
 import com.quspacedragon.workflow.entity.BaseEntity;
+import io.swagger.annotations.ApiModel;
 
 /**
  * <p>

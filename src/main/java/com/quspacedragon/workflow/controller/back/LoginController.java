@@ -1,4 +1,4 @@
-package com.quspacedragon.workflow.controller.app;
+package com.quspacedragon.workflow.controller.back;
 
 import com.quspacedragon.workflow.common.LoginHelper;
 import com.quspacedragon.workflow.common.Result;
@@ -13,7 +13,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.ibatis.annotations.Results;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,8 +29,8 @@ import java.util.Date;
  * @version V1.0
  * @since 2018/7/25
  */
-@Api("用户端登录")
-@RequestMapping("/user")
+@Api("后台登录")
+@RequestMapping("/back")
 public class LoginController {
 
     @Resource
@@ -59,9 +58,9 @@ public class LoginController {
         if (!MD5Util.string2MD5(password).equals(passWord)) {
             return ApiResultUtils.failResult("密码错误");
         }
-        String userToken = loginHelper.getUUID(user.getId(), LoginUserTypeEnum.USER.getType());
+        String userToken = loginHelper.getUUID(user.getId(), LoginUserTypeEnum.ADMIN.getType());
         user.setToken(userToken);
-        Token token = tokenService.findValidToken(user.getId(), LoginUserTypeEnum.USER.getType());
+        Token token = tokenService.findValidToken(user.getId(), LoginUserTypeEnum.ADMIN.getType());
         if (token == null) {
             token = new Token();
             token.setUserId(user.getId());

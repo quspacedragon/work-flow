@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.Version;
 import com.baomidou.mybatisplus.enums.FieldFill;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Title: BaseEntity
@@ -15,8 +17,10 @@ import com.baomidou.mybatisplus.enums.FieldFill;
  * @version V1.0
  * @since 2017/9/12
  */
+@ApiModel(value = "BaseEntity", discriminator = "baseEntity", subTypes = {Building.class})
 public abstract class BaseEntity<T extends Model> extends Model<T> {
     private static final long serialVersionUID = 1L;
+    @ApiModelProperty("主键id")
     protected Integer id;
     @TableField(value = "is_valid", fill = FieldFill.INSERT)
     @TableLogic

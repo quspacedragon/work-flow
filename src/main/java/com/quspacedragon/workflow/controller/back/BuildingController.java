@@ -8,8 +8,9 @@ import com.quspacedragon.workflow.common.Result;
 import com.quspacedragon.workflow.entity.Building;
 import com.quspacedragon.workflow.entity.ProductType;
 import com.quspacedragon.workflow.service.IBuildingService;
-import com.quspacedragon.workflow.service.IProductTypeService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
@@ -28,19 +29,21 @@ import javax.servlet.http.HttpServletRequest;
  * @author quspacedragon
  * @since 2018-07-24
  */
+@Api("楼栋相关")
 @Controller
-@RequestMapping("/building")
+@RequestMapping("/back/building")
+@LoginIntercept
 public class BuildingController {
 
     @Resource
     IBuildingService buildingService;
 
     @ApiOperation(value = "楼栋保存", response = Building.class)
-    @RequestMapping(value = "/v1/save", method = {RequestMethod.GET, RequestMethod.POST})
-    @LoginIntercept
+    @RequestMapping(value = "/v1/save", method = {RequestMethod.POST})
+    @ApiImplicitParam(name = "building", value = "创建", required = true, dataType = "Building")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public Result save(@ApiParam(value = "楼栋", required = true) @RequestBody(required = true) Building building,
+    public Result save(@RequestBody(required = true) Building building,
                        HttpServletRequest httpServletRequest) {
         Building byCode = buildingService.findByCode(building.getCode());
         if (byCode != null) {
