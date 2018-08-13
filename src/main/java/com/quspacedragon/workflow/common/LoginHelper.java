@@ -49,6 +49,13 @@ public class LoginHelper implements InitializingBean {
     }
 
 
+    public Boolean loginOut(Integer userId, Integer type) {
+        BiMap<Integer, String> loginMap = getLoginMap(type);
+        loginMap.remove(userId);
+        return true;
+    }
+
+
     public boolean islogin(Integer userId, String token, Integer type) {
         boolean islogin = false;
         Map<Integer, String> map = getLoginMap(type);

@@ -24,9 +24,13 @@ public class SegmentLock<T> {
         }
     }
 
-    public void lock(T key) {
+    public Boolean lock(T key) {
         ReentrantLock lock = lockMap.get((key.hashCode() >>> 1) % segments);
+        if (lock.isLocked()) {
+            return false;
+        }
         lock.lock();
+        return true;
     }
 
     public void unlock(T key) {
