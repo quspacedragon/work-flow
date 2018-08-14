@@ -1,24 +1,29 @@
 package com.quspacedragon.workflow.controller.app;
 
+import com.google.common.base.Objects;
+import com.quspacedragon.workflow.annoation.LoginIntercept;
 import com.quspacedragon.workflow.common.LoginHelper;
 import com.quspacedragon.workflow.common.Result;
 import com.quspacedragon.workflow.entity.Token;
 import com.quspacedragon.workflow.entity.User;
 import com.quspacedragon.workflow.enums.LoginUserTypeEnum;
+import com.quspacedragon.workflow.enums.SmsTypeEnum;
+import com.quspacedragon.workflow.service.ISmsRecordService;
 import com.quspacedragon.workflow.service.ITokenService;
 import com.quspacedragon.workflow.service.IUserService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
 import com.quspacedragon.workflow.util.MD5Util;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.ibatis.annotations.Results;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.apache.poi.ss.formula.functions.Code;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -31,6 +36,7 @@ import java.util.Date;
  * @since 2018/7/25
  */
 @Api("用户端登录")
+@Controller("appLoginController")
 @RequestMapping("/user")
 public class LoginController {
 
@@ -40,18 +46,18 @@ public class LoginController {
     ITokenService tokenService;
     @Resource
     LoginHelper loginHelper;
+    @Resource
+    ISmsRecordService smsRecordService;
+
 
     @ApiOperation("登录")
-    @RequestMapping("/login")
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
-    public Result getAuthcode(
-            @ApiParam(value = "phone", name = "手机号码", required = true)
-            @RequestAttribute String phone,
-            @ApiParam(value = "password", name = "密码", required = true)
-            @RequestAttribute String password
+    public Result login(
+            @ApiParam(name = "phone", value = "手机号码", required = true) @RequestParam String phone,
+            @ApiParam(name = "password", value = "密码", required = true) @RequestParam String password
     ) {
-
-
         User user = userService.findByPhone(phone);
         if (user == null) {
             return ApiResultUtils.failResult("用户不存在");
@@ -74,4 +80,49 @@ public class LoginController {
         tokenService.insertOrUpdate(token);
         return ApiResultUtils.successResult(user);
     }
+
+
+    @ApiOperation(value = "找回密码", response = Boolean.class)
+    @RequestMapping(value = "/findPwd", method = RequestMethod.GET)
+    @ResponseBody
+    public Result findPwd(
+            @ApiParam(name = "phone", value = "手机号码", required = true) @RequestParam String phone,
+            @ApiParam(name = "code", value = "验证码", required = true) @RequestParam String code,
+            @ApiParam(name = "password", value = "code", required = true) @RequestParam String password,
+            @ApiParam(name = "confirmPassword", value = "确认密码", required = true) @RequestParam String confirmPassword
+    ) {
+        if (!Objects.equal(password, confirmPassword)) {
+            return ApiResultUtils.failResult("两次输入的密码不一致");
+        }
+        User user = userService.findByPhone(phone);
+        if (user == null) {
+            return ApiResultUtils.failResult("用户不存在");
+        }
+        Boolean valiade = smsRecordService.valiade(phone, SmsTypeEnum.app_find_pwd.getType(), code);
+        if (!valiade) {
+            return ApiResultUtils.failResult("验证码错误");
+        }
+        user.setPassWord(MD5Util.string2MD5(password));
+        boolean flag = userService.updateById(user);
+        return ApiResultUtils.successResult(flag);
+    }
+
+    @ApiOperation(value = "登出", response = Boolean.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "手机号码", value = "phone", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "密码", value = "password", required = true, dataType = "String"),
+    })
+    @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
+    @ResponseBody
+    @LoginIntercept
+    public Result loginOut(@RequestParam String token,
+                           HttpServletRequest httpServletRequest
+    ) {
+        Integer loginUserId = loginHelper.getLoginUserId(token, httpServletRequest);
+        Boolean aBoolean = loginHelper.loginOut(loginUserId, LoginUserTypeEnum.USER.getType());
+
+        return ApiResultUtils.successResult(aBoolean);
+    }
+
+
 }

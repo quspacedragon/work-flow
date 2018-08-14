@@ -14,7 +14,8 @@ import java.util.Arrays;
  * @since 2018/7/25
  */
 public enum SmsTypeEnum {
-    update_login_phone(1, "修改登录账户");
+    update_login_phone(1, "修改登录账户"),
+    app_find_pwd(2, "app找回密码"),;
 
     private int type;
     private String name;

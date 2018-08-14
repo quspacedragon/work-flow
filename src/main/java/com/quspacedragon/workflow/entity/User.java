@@ -1,5 +1,6 @@
 package com.quspacedragon.workflow.entity;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 import java.util.Date;
@@ -7,7 +8,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.Version;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quspacedragon.workflow.entity.BaseEntity;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -22,6 +25,7 @@ public class User extends BaseEntity<User> {
     private static final long serialVersionUID = 1L;
 
     private String phone;
+    @JsonIgnore
     @TableField("pass_word")
     private String passWord;
     private String name;
@@ -110,7 +114,7 @@ public class User extends BaseEntity<User> {
     private Long moveOutTime;
     @TableField("memo")
     private String memo;
-
+    @TableField(exist = false)
     private String token;
 
 
