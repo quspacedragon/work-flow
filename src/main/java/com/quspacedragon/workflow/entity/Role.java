@@ -9,7 +9,7 @@ import com.quspacedragon.workflow.entity.BaseEntity;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author quspacedragon
@@ -22,48 +22,49 @@ public class Role extends BaseEntity<Role> {
     /**
      * 角色名称
      */
-	private String name;
+    private String name;
     /**
      * 上级id
      */
-	@TableField("parent_id")
-	private Integer parentId;
-
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Integer getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
-	}
+    @TableField("parent_id")
+    private Integer parentId;
 
 
 
-	public static final String NAME = "name";
+    public String getName() {
+        return name;
+    }
 
-	public static final String PARENT_ID = "parent_id";
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
 
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
 
-	@Override
-	public String toString() {
-		return "Role{" +
-			"name=" + name +
-			", parentId=" + parentId +
-			", createTime=" + createTime +
-			"}";
-	}
+    public static final String NAME = "name";
+
+    public static final String PARENT_ID = "parent_id";
+
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "name=" + name +
+                ", parentId=" + parentId +
+                ", createTime=" + createTime +
+                "}";
+    }
 }

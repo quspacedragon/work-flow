@@ -37,7 +37,7 @@ public class MysqlGenerator {
         AutoGenerator mpg = new AutoGenerator().setGlobalConfig(
                 // 全局配置
                 new GlobalConfig()
-                        .setOutputDir("/Users/quspacedragon/Documents/work/quspacedragon/workflow/src/main/java")//输出目录
+                        .setOutputDir("/Users/quspacedragon/Documents/private/work-flow/src/main/java")//输出目录
                         .setFileOverride(true)// 是否覆盖文件
                         .setActiveRecord(true)// 开启 activeRecord 模式
                         .setEnableCache(false)// XML 二级缓存
@@ -76,7 +76,7 @@ public class MysqlGenerator {
                         // .setDbColumnUnderline(true)//全局下划线命名
                         .setTablePrefix(new String[]{"bmd_", "mp_"})// 此处可以修改为您的表前缀
                         .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
-                         .setInclude(new String[] {"token","sms_record"}) // 需要生成的表
+                         .setInclude(new String[] {"equipment"}) // 需要生成的表
 //                         .setExclude(new String[]{"order"}) // 排除生成的表
                         // 自定义实体父类
 
@@ -125,7 +125,7 @@ public class MysqlGenerator {
                     // 自定义输出文件目录
                     @Override
                     public String outputFile(TableInfo tableInfo) {
-                        return "/Users/quspacedragon/Documents/work/quspacedragon/workflow/src/main/resources/mapper/" + tableInfo.getEntityName() + ".xml";
+                        return "/Users/quspacedragon/Documents/private/work-flow/src/main/resources/mapper/" + tableInfo.getEntityName() + ".xml";
                     }
                 }))
         ).setTemplate(

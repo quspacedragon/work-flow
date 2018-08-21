@@ -1,16 +1,13 @@
 package com.quspacedragon.workflow.entity;
 
-import java.beans.Transient;
-import java.io.Serializable;
-
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.Version;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.quspacedragon.workflow.entity.BaseEntity;
-import org.springframework.transaction.annotation.Transactional;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -116,6 +113,11 @@ public class User extends BaseEntity<User> {
     private String memo;
     @TableField(exist = false)
     private String token;
+    @TableField("role_id")
+    private Integer roleId;
+    @ApiModelProperty("菜单")
+    @TableField(exist = false)
+    private List<Menu> menus;
 
 
     public String getPhone() {
@@ -356,6 +358,13 @@ public class User extends BaseEntity<User> {
 
     public static final String PARENT_ID = "parent_id";
 
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
     public String getMemo() {
         return memo;
@@ -375,6 +384,14 @@ public class User extends BaseEntity<User> {
 
     public String getContactNumber() {
         return contactNumber;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
     }
 
     public void setContactNumber(String contactNumber) {

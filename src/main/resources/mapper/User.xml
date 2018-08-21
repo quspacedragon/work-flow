@@ -38,6 +38,7 @@
 		<result column="move_out_time" property="moveOutTime" />
 		<result column="memo" property="memo" />
 		<result column="contact_number" property="contactNumber" />
+		<result column="role_id" property="roleId" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
@@ -50,7 +51,7 @@
 	status,
 	attribute,
         phone, pass_word AS passWord, name, property, room_id AS roomId, move_in_time AS moveInTime, can_free AS canFree, card_type AS cardType, card_no AS cardNo, sex, address, country, ethnic, census, birthday, create_admin_id AS createAdminId, create_memo AS createMemo, intermediary_company AS intermediaryCompany, lease_start_time AS leaseStartTime, lease_end_time AS leaseEndTime, plan_out_time AS planOutTime, user_type AS userType, parent_id AS parentId, create_time as createTime,
-		move_out_time as moveOutTime,memo as memo,contact_number as contactNumber
+		move_out_time as moveOutTime,memo as memo,contact_number as contactNumber,role_id as roleId
     </sql>
 
 </mapper>
