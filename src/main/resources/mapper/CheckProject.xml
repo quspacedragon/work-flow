@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quspacedragon.workflow.mapper.CheckProjectMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.CheckProject">
+	<result column="id" property="id" />
+	<result column="is_valid" property="isValid" />
+	<result column="op_time" property="opTime" />
+	<result column="last_ver" property="lastVer" />
+	<result column="status" property="status" />
+	<result column="type" property="type" />
+	<result column="attribute" property="attribute" />
+	<result column="create_time" property="createTime" />
+		<result column="name" property="name" />
+		<result column="cycle_type" property="cycleType" />
+		<result column="cycle_value" property="cycleValue" />
+		<result column="code" property="code" />
+		<result column="memo" property="memo" />
+		<result column="check_content" property="checkContent" />
+		<result column="check_require" property="checkRequire" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+	id,
+	is_valid AS isValid,
+	op_time AS opTime,
+	last_ver AS lastVer,
+	status,
+	type,
+	attribute,
+	create_time AS createTime,
+        name, cycle_type AS cycleType, cycle_value AS cycleValue, code, memo, check_content AS checkContent, check_require AS checkRequire
+    </sql>
+
+</mapper>

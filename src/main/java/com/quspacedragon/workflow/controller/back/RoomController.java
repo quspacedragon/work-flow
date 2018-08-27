@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.quspacedragon.workflow.annoation.LoginIntercept;
 import com.quspacedragon.workflow.common.Result;
+import com.quspacedragon.workflow.entity.CheckProject;
 import com.quspacedragon.workflow.entity.ProductType;
 import com.quspacedragon.workflow.entity.Room;
 import com.quspacedragon.workflow.enums.RoomStatusEnum;
@@ -12,6 +13,7 @@ import com.quspacedragon.workflow.request.RoomMergeRequest;
 import com.quspacedragon.workflow.request.RoomSplitRequest;
 import com.quspacedragon.workflow.service.IRoomService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
@@ -34,13 +36,14 @@ import java.util.stream.Collectors;
  * @since 2018-07-24
  */
 @Controller
+@Api("房间管理")
 @RequestMapping("/room")
 public class RoomController {
     @Resource
     IRoomService roomService;
 
     @ApiOperation(value = "房间保存", response = Room.class)
-    @RequestMapping(value = "/v1/save", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/v1/save", method = {RequestMethod.POST})
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -58,7 +61,7 @@ public class RoomController {
     }
 
     @ApiOperation(value = "房间删除", response = Result.class)
-    @RequestMapping(value = "/v1/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/v1/delete", method = {RequestMethod.GET})
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -69,7 +72,7 @@ public class RoomController {
 
 
     @ApiOperation(value = "房间合并", response = Result.class)
-    @RequestMapping(value = "/v1/merge", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/v1/merge", method = {RequestMethod.GET})
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -89,7 +92,7 @@ public class RoomController {
 
 
     @ApiOperation(value = "房间拆分", response = Result.class)
-    @RequestMapping(value = "/v1/split", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/v1/split", method = {RequestMethod.GET})
     @LoginIntercept
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -136,6 +139,33 @@ public class RoomController {
         boolean flag = roomService.updateBatchById(collect);
         return ApiResultUtils.successResult(flag);
     }
+
+
+    @ApiOperation(value = "房间列表", response = Page.class)
+    @RequestMapping(value = "/v1/list", method = {RequestMethod.GET})
+    @LoginIntercept
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Result list(
+            @ApiParam(value = "名称或者编码", required = false) @RequestParam(value = "code", required = false) String code,
+            @ApiParam(value = "页码", required = false) @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+            HttpServletRequest httpServletRequest) {
+        Page<Room> buildingPage = new Page<>();
+        EntityWrapper<Room> buildingEntityWrapper = new EntityWrapper<>();
+        if (StringUtils.isNotEmpty(code)) {
+            buildingEntityWrapper.like(true, Room.ROOM_NO, code);
+            buildingEntityWrapper.or();
+            buildingEntityWrapper.like(true, Room.CODE, code);
+            buildingEntityWrapper.or();
+            buildingEntityWrapper.andNew();
+        }
+        buildingPage.setCurrent(pageNo);
+        Page<Room> page = roomService.selectPage(buildingPage, buildingEntityWrapper);
+        int num = roomService.selectCount(buildingEntityWrapper);
+        page.setTotal(num);
+        return ApiResultUtils.successResult(page);
+    }
+
 
     /**
      * 判断两个房间是否空置

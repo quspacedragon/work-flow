@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.Version;
 import com.quspacedragon.workflow.entity.BaseEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -15,6 +17,7 @@ import com.quspacedragon.workflow.entity.BaseEntity;
  * @author quspacedragon
  * @since 2018-07-24
  */
+@ApiModel("房间")
 public class Room extends BaseEntity<Room> {
 
     private static final long serialVersionUID = 1L;
@@ -23,33 +26,42 @@ public class Room extends BaseEntity<Room> {
      * 楼栋id
      */
     @TableField("building_id")
+    @ApiModelProperty("楼栋id")
     private Integer buildingId;
     /**
      * 单元id
      */
     @TableField("unit_id")
+    @ApiModelProperty("单元id")
     private Integer unitId;
     /**
      * 房号
      */
     @TableField("room_no")
+    @ApiModelProperty("房号")
     private String roomNo;
     /**
      * 楼层
      */
+    @ApiModelProperty("楼层")
     private Integer floor;
+    @ApiModelProperty("编码")
     private String code;
     /**
      * 建筑面积 平方厘米
      */
+    @ApiModelProperty("建筑面积 平米厘米")
     private Integer area;
     /**
      * 套内面积
      */
+    @ApiModelProperty("套内面积")
     @TableField("inside_area")
     private Integer insideArea;
+    @ApiModelProperty("产品类型id")
     @TableField("product_type_Id")
     private Integer productTypeId;
+    @ApiModelProperty("业务类型id")
     @TableField("business_type")
     private Integer businessType;
     private Integer memo;
