@@ -8,6 +8,7 @@ import com.quspacedragon.workflow.common.Result;
 import com.quspacedragon.workflow.entity.ProductType;
 import com.quspacedragon.workflow.service.IProductTypeService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/productType")
+@Api("产品类型")
 public class ProductTypeController {
 
 

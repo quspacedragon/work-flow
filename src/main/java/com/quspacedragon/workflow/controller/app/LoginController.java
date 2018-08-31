@@ -35,7 +35,7 @@ import java.util.Date;
  * @version V1.0
  * @since 2018/7/25
  */
-@Api("用户端登录")
+@Api("app-用户端登录")
 @Controller("appLoginController")
 @RequestMapping("/user")
 public class LoginController {

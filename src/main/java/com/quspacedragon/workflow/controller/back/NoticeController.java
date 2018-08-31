@@ -8,6 +8,7 @@ import com.quspacedragon.workflow.entity.Room;
 import com.quspacedragon.workflow.enums.NoticeStatusEnum;
 import com.quspacedragon.workflow.service.INoticeService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.collections.CollectionUtils;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
  */
 @Controller
 @RequestMapping("/notice")
+@Api("通知管理")
 public class NoticeController {
     @Autowired
     INoticeService noticeService;

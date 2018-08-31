@@ -9,6 +9,7 @@ import com.quspacedragon.workflow.entity.Building;
 import com.quspacedragon.workflow.entity.EquipGroup;
 import com.quspacedragon.workflow.service.IEquipGroupService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author quspacedragon
@@ -30,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/equipGroup")
+@Api("设备分组")
 public class EquipGroupController {
     @Resource
     IEquipGroupService equipGroupService;

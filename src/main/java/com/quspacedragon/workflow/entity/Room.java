@@ -67,6 +67,10 @@ public class Room extends BaseEntity<Room> {
     private Integer memo;
 
 
+    @TableField(exist = false)
+    private Unit unit;
+
+
     public Integer getBuildingId() {
         return buildingId;
     }
@@ -145,6 +149,14 @@ public class Room extends BaseEntity<Room> {
 
     public void setBusinessType(Integer businessType) {
         this.businessType = businessType;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
     public static final String BUILDING_ID = "building_id";

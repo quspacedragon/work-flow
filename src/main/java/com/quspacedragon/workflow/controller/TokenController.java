@@ -1,9 +1,9 @@
 package com.quspacedragon.workflow.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * <p>
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/token")
+@Api(hidden = true)
 public class TokenController {
 	
 }

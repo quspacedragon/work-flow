@@ -12,6 +12,7 @@ import com.quspacedragon.workflow.enums.RoomStatusEnum;
 import com.quspacedragon.workflow.request.RoomMergeRequest;
 import com.quspacedragon.workflow.request.RoomSplitRequest;
 import com.quspacedragon.workflow.service.IRoomService;
+import com.quspacedragon.workflow.service.IUnitService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,7 @@ import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -41,6 +43,8 @@ import java.util.stream.Collectors;
 public class RoomController {
     @Resource
     IRoomService roomService;
+    @Resource
+    IUnitService unitService;
 
     @ApiOperation(value = "房间保存", response = Room.class)
     @RequestMapping(value = "/v1/save", method = {RequestMethod.POST})
@@ -156,11 +160,13 @@ public class RoomController {
             buildingEntityWrapper.like(true, Room.ROOM_NO, code);
             buildingEntityWrapper.or();
             buildingEntityWrapper.like(true, Room.CODE, code);
-            buildingEntityWrapper.or();
-            buildingEntityWrapper.andNew();
         }
         buildingPage.setCurrent(pageNo);
         Page<Room> page = roomService.selectPage(buildingPage, buildingEntityWrapper);
+        List<Room> records = page.getRecords();
+        if (!CollectionUtils.isEmpty(records)) {
+            records.forEach(r -> r.setUnit(unitService.selectById(r.getUnitId())));
+        }
         int num = roomService.selectCount(buildingEntityWrapper);
         page.setTotal(num);
         return ApiResultUtils.successResult(page);

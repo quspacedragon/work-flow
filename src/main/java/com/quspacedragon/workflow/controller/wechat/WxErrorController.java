@@ -1,5 +1,6 @@
 package com.quspacedragon.workflow.controller.wechat;
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Controller
+@Api(hidden = true)
 public class WxErrorController implements ErrorController {
 
     private static final Logger logger = LoggerFactory.getLogger(WxErrorController.class);
