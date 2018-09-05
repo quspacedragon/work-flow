@@ -51,7 +51,6 @@ public class LoginController {
 
 
     @ApiOperation("登录")
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
     public Result login(
@@ -72,6 +71,7 @@ public class LoginController {
         if (token == null) {
             token = new Token();
             token.setUserId(user.getId());
+            token.setType(LoginUserTypeEnum.USER.getType());
         }
         token.setToken(userToken);
         Date requestTime = new Date();
@@ -122,6 +122,30 @@ public class LoginController {
         Boolean aBoolean = loginHelper.loginOut(loginUserId, LoginUserTypeEnum.USER.getType());
 
         return ApiResultUtils.successResult(aBoolean);
+    }
+
+
+    @ApiOperation("自动登录")
+    @RequestMapping(value = "/tokenLogin", method = RequestMethod.GET)
+    @ResponseBody
+    public Result login(
+            @ApiParam(value = "token", required = true) @RequestParam(value = "token", required = true) String token,
+            @ApiParam(value = "用户id", required = true) @RequestParam(value = "userId", required = true) Long userId
+    ) {
+        User user = userService.selectById(userId);
+        if (user == null) {
+            return ApiResultUtils.failResult("用户不存在");
+        }
+        Token tokenEntity = tokenService.findValidToken(user.getId(), LoginUserTypeEnum.USER.getType());
+        if (tokenEntity == null) {
+            return ApiResultUtils.failResult("登录已过期，请重新登录");
+        }
+        tokenEntity.setToken(token);
+        Date requestTime = new Date();
+        tokenEntity.setRequestTime(requestTime);
+        tokenEntity.setExpiredTime(DateUtils.addDays(requestTime, 7));
+        tokenService.insertOrUpdate(tokenEntity);
+        return ApiResultUtils.successResult(user);
     }
 
 

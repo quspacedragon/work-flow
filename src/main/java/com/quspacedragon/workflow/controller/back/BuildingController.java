@@ -81,7 +81,6 @@ public class BuildingController {
             buildingEntityWrapper.like(true, ProductType.NAME, code);
             buildingEntityWrapper.or();
             buildingEntityWrapper.like(true, ProductType.CODE, code);
-            buildingEntityWrapper.andNew();
         }
         buildingPage.setCurrent(pageNo);
         Page<Building> page = buildingService.selectPage(buildingPage, buildingEntityWrapper);

@@ -76,6 +76,7 @@ public class LoginController {
         if (token == null) {
             token = new Token();
             token.setUserId(user.getId());
+            token.setType(LoginUserTypeEnum.ADMIN.getType());
         }
         token.setToken(userToken);
         Date requestTime = new Date();

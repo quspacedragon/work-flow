@@ -9,6 +9,7 @@ import com.quspacedragon.workflow.service.IAdminService;
 import com.quspacedragon.workflow.service.ITokenService;
 import com.quspacedragon.workflow.service.IUserService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -83,35 +84,36 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 type = LoginUserTypeEnum.STAFF.getType();
             } else if (requestURI.startsWith("/back")) {
                 type = LoginUserTypeEnum.ADMIN.getType();
-            } else if (requestURI.startsWith("/user")) {
-                type = LoginUserTypeEnum.ADMIN.getType();
+            } else if (requestURI.startsWith("/app")) {
+                type = LoginUserTypeEnum.USER.getType();
             } else {
                 return true;
             }
             request.setAttribute(LoginHelper.LOGIN_TYPE, type);
-            userId = Convert.asInt(userIdParam);
+
             if (userToken == null) {
                 print(response,
                         ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "userToken参数缺失"));
                 return false;
             }
-            if (userId == null) {
+            if (StringUtils.isEmpty(userIdParam)) {
                 print(response,
                         ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "userId参数缺失"));
                 return false;
             }
+            userId = Convert.asInt(userIdParam);
             boolean islogin = loginHelper.islogin(userId, userToken, type);
-
-            if (islogin) {
-                return true;
+            if (!islogin) {
+                print(response,
+                        ApiResultUtils.failResult(HttpStatus.UNAUTHORIZED.ordinal(), "请重新登录"));
             }
+            return islogin;
         } catch (Exception e) {
             log.error("错误", e);
             print(response,
                     ApiResultUtils.failResult(HttpStatus.BAD_REQUEST.ordinal(), "参数错误:" + e.getMessage()));
             return false;
         }
-        return true;
     }
 
 

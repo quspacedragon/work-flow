@@ -81,7 +81,6 @@ public class ProductTypeController {
             productTypeEntityWrapper.like(true, ProductType.NAME, code);
             productTypeEntityWrapper.or();
             productTypeEntityWrapper.like(true, ProductType.CODE, code);
-            productTypeEntityWrapper.andNew();
         }
         if (businessType != null) {
             productTypeEntityWrapper.eq(ProductType.BUSINESS_TYPE, businessType);

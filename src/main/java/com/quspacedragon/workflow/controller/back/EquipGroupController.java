@@ -75,7 +75,6 @@ public class EquipGroupController {
             buildingEntityWrapper.like(true, EquipGroup.NAME, code);
             buildingEntityWrapper.or();
             buildingEntityWrapper.like(true, EquipGroup.CODE, code);
-            buildingEntityWrapper.andNew();
         }
         buildingPage.setCurrent(pageNo);
         Page<EquipGroup> page = equipGroupService.selectPage(buildingPage, buildingEntityWrapper);

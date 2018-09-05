@@ -22,8 +22,8 @@ public class TokenService extends ServiceImpl<TokenMapper, Token> implements ITo
     public Token findValidToken(Integer userId, Integer type) {
         EntityWrapper<Token> tokenEntityWrapper = new EntityWrapper<>();
         tokenEntityWrapper.eq(Token.USER_ID, userId);
-        tokenEntityWrapper.eq(BaseEntity.TYPE, userId);
-        tokenEntityWrapper.le(Token.EXPIRED_TIME, System.currentTimeMillis());
+        tokenEntityWrapper.eq(BaseEntity.TYPE, type);
+        tokenEntityWrapper.ge(Token.EXPIRED_TIME, System.currentTimeMillis());
         Token token = selectOne(tokenEntityWrapper);
         return token;
     }

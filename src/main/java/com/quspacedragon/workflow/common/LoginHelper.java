@@ -48,6 +48,10 @@ public class LoginHelper implements InitializingBean {
         return userToken;
     }
 
+    public void login(String token, Integer userId, Integer type) {
+        getLoginMap(type).put(userId, token);
+    }
+
 
     public Boolean loginOut(Integer userId, Integer type) {
         BiMap<Integer, String> loginMap = getLoginMap(type);
@@ -70,7 +74,7 @@ public class LoginHelper implements InitializingBean {
                 return false;
             }
             Date expiredTime = tokenEntity.getExpiredTime();
-            if (expiredTime.after(new Date())) {
+            if (expiredTime.before(new Date())) {
                 throw new BizException(ExceptionEnum.TOKEN_EXPIRE);
             }
             return true;
@@ -92,17 +96,17 @@ public class LoginHelper implements InitializingBean {
 
     private Token selectToken(Integer userId, Integer type) {
         try {
-            cache.get(userId + "_" + type, new Callable<Token>() {
+            Token token = cache.get(userId + "_" + type, new Callable<Token>() {
                 @Override
                 public Token call() throws Exception {
                     return tokenService.findValidToken(userId, type);
                 }
             });
+            return token;
         } catch (ExecutionException e) {
             log.error(e.getMessage());
             throw new BizException(e.getMessage(), ExceptionEnum.UNKNOW_ERROR.getCode());
         }
-        return null;
     }
 
     @Override

@@ -6,15 +6,14 @@ import com.google.common.collect.Maps;
 import com.quspacedragon.workflow.annoation.LoginIntercept;
 import com.quspacedragon.workflow.common.LoginHelper;
 import com.quspacedragon.workflow.common.Result;
-import com.quspacedragon.workflow.entity.Building;
 import com.quspacedragon.workflow.entity.CheckRecord;
-import com.quspacedragon.workflow.entity.ProductType;
+import com.quspacedragon.workflow.enums.CheckRecordStatusEnum;
 import com.quspacedragon.workflow.service.ICheckRecordService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
+import com.quspacedragon.workflow.vo.AppEquipVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Title: LoginController
@@ -34,7 +34,7 @@ import java.util.HashMap;
  */
 @Api("app-设备")
 @Controller("appEquipController")
-@RequestMapping("/user")
+@RequestMapping("/app/equip")
 public class EquipController {
 
     @Resource
@@ -43,7 +43,7 @@ public class EquipController {
     LoginHelper loginHelper;
 
 
-    @ApiOperation(value = "设备巡查列表", response = Page.class)
+    @ApiOperation(value = "设备巡查列表", response = AppEquipVo.class)
     @RequestMapping(value = "/v1/list", method = {RequestMethod.GET, RequestMethod.POST})
     @LoginIntercept
     @ResponseBody
@@ -52,7 +52,9 @@ public class EquipController {
             @ApiParam(value = "名称或者编码", required = false) @RequestParam(value = "code", required = false) String code,
             @ApiParam(value = "页码", required = false) @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
             HttpServletRequest httpServletRequest,
-            @RequestParam(value = "token", required = true) String token) {
+            @ApiParam(value = "token", required = true) @RequestParam(value = "token", required = true) String token,
+            @ApiParam(value = "用户id", required = true) @RequestParam(value = "userId", required = true) Long userId
+    ) {
         Integer loginUserId = loginHelper.getLoginUserId(token, httpServletRequest);
 
         Page<CheckRecord> buildingPage = new Page<>();
@@ -68,11 +70,46 @@ public class EquipController {
 
         int num = checkRecordService.selectCount(buildingEntityWrapper);
 
-
-        HashMap<String, Object> result = Maps.newHashMap();
+        AppEquipVo appEquipVo = new AppEquipVo();
 //        result.put("")
-        return ApiResultUtils.successResult(result);
+        appEquipVo.setTodoNum(num);
+        return ApiResultUtils.successResult(appEquipVo);
     }
 
+    @ApiOperation(value = "设备巡检", response = Boolean.class)
+    @RequestMapping(value = "/v1/check", method = {RequestMethod.GET, RequestMethod.POST})
+    @LoginIntercept
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Result check(
+            @ApiParam(value = "设备实体id", required = false) @RequestParam(value = "equipEntityId", required = true) Integer equipEntityId,
+            HttpServletRequest httpServletRequest,
+            @ApiParam(value = "token", required = true) @RequestParam(value = "token", required = true) String token,
+            @ApiParam(value = "用户id", required = true) @RequestParam(value = "userId", required = true) Long userId
+    ) {
+        Integer loginUserId = loginHelper.getLoginUserId(token, httpServletRequest);
+
+        Page<CheckRecord> buildingPage = new Page<>();
+        CheckRecord checkRecord = new CheckRecord();
+        checkRecord.setUserId(loginUserId);
+        checkRecord.setEquipEntityId(equipEntityId);
+        EntityWrapper<CheckRecord> buildingEntityWrapper = new EntityWrapper<>();
+        buildingEntityWrapper.setEntity(checkRecord);
+        long now = System.currentTimeMillis();
+        buildingEntityWrapper.ge(CheckRecord.VALID_START_TIME, now);
+        buildingEntityWrapper.le(CheckRecord.VALID_END_TIME, now);
+
+        CheckRecord checkRecordResult = checkRecordService.selectOne(buildingEntityWrapper);
+        if (checkRecordResult == null) {
+            return ApiResultUtils.failResult("没有巡检任务");
+        }
+        Integer status = checkRecordResult.getStatus();
+        if (CheckRecordStatusEnum.CHECKED.getStatus().equals(status)) {
+            return ApiResultUtils.failResult("该设备已巡检过");
+        }
+        checkRecordResult.setStatus(CheckRecordStatusEnum.CHECKED.getStatus());
+        checkRecordService.updateById(checkRecord);
+        return ApiResultUtils.successResult(true);
+    }
 
 }
