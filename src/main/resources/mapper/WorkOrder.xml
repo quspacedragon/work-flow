@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quspacedragon.workflow.mapper.WorkOrderMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.quspacedragon.workflow.entity.WorkOrder">
+	<result column="id" property="id" />
+	<result column="is_valid" property="isValid" />
+	<result column="op_time" property="opTime" />
+	<result column="last_ver" property="lastVer" />
+	<result column="status" property="status" />
+	<result column="type" property="type" />
+	<result column="attribute" property="attribute" />
+	<result column="create_time" property="createTime" />
+		<result column="create_user_id" property="createUserId" />
+		<result column="user_id" property="userId" />
+		<result column="process_user_id" property="processUserId" />
+		<result column="desc" property="desc" />
+		<result column="process_opinion" property="processOpinion" />
+		<result column="room_id" property="roomId" />
+		<result column="service_type" property="serviceType" />
+		<result column="dispatch_time" property="dispatchTime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+	id,
+	is_valid AS isValid,
+	op_time AS opTime,
+	last_ver AS lastVer,
+	status,
+	type,
+	attribute,
+	create_time AS createTime,
+        create_user_id AS createUserId, user_id AS userId, process_user_id AS processUserId, desc, process_opinion AS processOpinion, room_id AS roomId, service_type AS serviceType, dispatch_time AS dispatchTime
+    </sql>
+
+</mapper>
