@@ -28,6 +28,7 @@ import java.util.concurrent.ExecutionException;
 @Log4j
 public class LoginHelper implements InitializingBean {
     public static final String LOGIN_TYPE = "login_type";
+    public static final String TOKEN = "token";
     private static Cache<String, Token> cache;
     public static BiMap<Integer, String> userMap = HashBiMap.create();
     public static BiMap<Integer, String> adminMap = HashBiMap.create();
@@ -39,6 +40,12 @@ public class LoginHelper implements InitializingBean {
     public Integer getLoginUserId(String token, HttpServletRequest httpServletRequest) {
         Integer type = (Integer) httpServletRequest.getAttribute(LOGIN_TYPE);
         return getLoginMap(type).inverse().get(token);
+
+    }
+
+    public Integer getLoginUserId( HttpServletRequest httpServletRequest) {
+        Integer type = (Integer) httpServletRequest.getAttribute(LOGIN_TYPE);
+        return getLoginMap(type).inverse().get(TOKEN);
 
     }
 
@@ -79,6 +86,15 @@ public class LoginHelper implements InitializingBean {
             }
             return true;
         }
+    }
+
+    public boolean isTokenlogin(Integer userId, String token, Integer type) {
+        boolean islogin = false;
+        Map<Integer, String> map = getLoginMap(type);
+        if (map.containsKey(userId) && token.equals(map.get(userId))) {
+            return true;
+        }
+        return false;
     }
 
     private BiMap<Integer, String> getLoginMap(Integer type) {

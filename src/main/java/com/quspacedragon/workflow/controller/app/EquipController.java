@@ -2,15 +2,20 @@ package com.quspacedragon.workflow.controller.app;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.google.common.collect.Maps;
 import com.quspacedragon.workflow.annoation.LoginIntercept;
 import com.quspacedragon.workflow.common.LoginHelper;
 import com.quspacedragon.workflow.common.Result;
+import com.quspacedragon.workflow.entity.CheckProject;
 import com.quspacedragon.workflow.entity.CheckRecord;
+import com.quspacedragon.workflow.entity.EquipEntity;
 import com.quspacedragon.workflow.enums.CheckRecordStatusEnum;
+import com.quspacedragon.workflow.service.ICheckProjectService;
 import com.quspacedragon.workflow.service.ICheckRecordService;
+import com.quspacedragon.workflow.service.IEquipEntityService;
 import com.quspacedragon.workflow.util.ApiResultUtils;
 import com.quspacedragon.workflow.vo.AppEquipVo;
+import com.quspacedragon.workflow.vo.EquipCheckDetail;
+import com.quspacedragon.workflow.vo.MeterDetail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,8 +25,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Title: LoginController
@@ -35,12 +38,18 @@ import java.util.List;
 @Api("app-设备")
 @Controller("appEquipController")
 @RequestMapping("/app/equip")
+@LoginIntercept
 public class EquipController {
 
     @Resource
     ICheckRecordService checkRecordService;
     @Resource
     LoginHelper loginHelper;
+
+    @Resource
+    IEquipEntityService equipEntityService;
+    @Resource
+    ICheckProjectService checkProjectService;
 
 
     @ApiOperation(value = "设备巡查列表", response = AppEquipVo.class)
@@ -52,12 +61,12 @@ public class EquipController {
             @ApiParam(value = "名称或者编码", required = false) @RequestParam(value = "code", required = false) String code,
             @ApiParam(value = "页码", required = false) @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
             HttpServletRequest httpServletRequest,
-            @ApiParam(value = "token", required = true) @RequestParam(value = "token", required = true) String token,
-            @ApiParam(value = "用户id", required = true) @RequestParam(value = "userId", required = true) Long userId
+            @ApiParam(value = "每页条数", required = false) @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+            @ApiParam(value = "token", required = true) @RequestParam(value = "token", required = true) String token
     ) {
         Integer loginUserId = loginHelper.getLoginUserId(token, httpServletRequest);
 
-        Page<CheckRecord> buildingPage = new Page<>();
+        Page<CheckRecord> buildingPage = new Page<>(pageNo, pageSize);
         CheckRecord checkRecord = new CheckRecord();
         checkRecord.setUserId(loginUserId);
 
@@ -84,8 +93,7 @@ public class EquipController {
     public Result check(
             @ApiParam(value = "设备实体id", required = false) @RequestParam(value = "equipEntityId", required = true) Integer equipEntityId,
             HttpServletRequest httpServletRequest,
-            @ApiParam(value = "token", required = true) @RequestParam(value = "token", required = true) String token,
-            @ApiParam(value = "用户id", required = true) @RequestParam(value = "userId", required = true) Long userId
+            @ApiParam(value = "token", required = true) @RequestParam(value = "token", required = true) String token
     ) {
         Integer loginUserId = loginHelper.getLoginUserId(token, httpServletRequest);
 
@@ -111,5 +119,56 @@ public class EquipController {
         checkRecordService.updateById(checkRecord);
         return ApiResultUtils.successResult(true);
     }
+
+
+    @ApiOperation(value = "巡检详情", response = EquipCheckDetail.class)
+    @RequestMapping(value = "/v1/detail", method = {RequestMethod.GET, RequestMethod.POST})
+    @LoginIntercept
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Result list(
+            @ApiParam(value = "设备实体id", required = false) @RequestParam(value = "equipEntityId", required = true) Integer equipEntityId,
+            @ApiParam(value = "token", required = true) @RequestParam(value = "token", required = true) String token,
+            HttpServletRequest httpServletRequest) {
+
+        EquipEntity equipEntity = equipEntityService.selectById(equipEntityId);
+        CheckProject checkProject = checkProjectService.selectById(equipEntity.getCheckProjectId());
+        CheckRecord nowCheckRecord = checkRecordService.findNowCheckRecord(equipEntityId);
+
+
+        EquipCheckDetail equipCheckDetail = new EquipCheckDetail();
+        equipCheckDetail.setAddress(equipEntity.getPosition());
+        equipCheckDetail.setCheckMethod(checkProject.getCheckContent());
+        equipCheckDetail.setCheckRequire(checkProject.getCheckRequire());
+        if (nowCheckRecord != null) {
+            equipCheckDetail.setCheckTime(nowCheckRecord.getCheckTime());
+            equipCheckDetail.setDesc(nowCheckRecord.getAttribute());
+            equipCheckDetail.setImgList(nowCheckRecord.getImgList());
+            equipCheckDetail.setStatus(nowCheckRecord.getStatus());
+            equipCheckDetail.setCheckRecordId(nowCheckRecord.getId());
+        } else {
+            equipCheckDetail.setStatus(CheckRecordStatusEnum.TODO.getStatus());
+        }
+
+        return ApiResultUtils.successResult(equipCheckDetail);
+    }
+
+
+    @ApiOperation(value = "巡检开工", response = EquipCheckDetail.class)
+    @RequestMapping(value = "/v1/work", method = {RequestMethod.GET, RequestMethod.POST})
+    @LoginIntercept
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Result list(
+            @ApiParam(value = "巡检记录id", required = true) @RequestParam(value = "checkRecordId", required = true) Integer checkRecordId,
+            HttpServletRequest httpServletRequest) {
+
+        CheckRecord checkRecord = checkRecordService.selectById(checkRecordId);
+        checkRecord.setStatus(CheckRecordStatusEnum.TO_WORK.getStatus());
+
+        checkRecordService.updateById(checkRecord);
+        return ApiResultUtils.successResult(true);
+    }
+
 
 }

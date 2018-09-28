@@ -31,7 +31,7 @@ import javax.annotation.Resource;
  * @since 2018-07-24
  */
 @Controller
-@RequestMapping("/sms")
+@RequestMapping("/common/sms")
 @Log4j
 public class SmsRecordController {
     SegmentLock lock = new SegmentLock<String>();

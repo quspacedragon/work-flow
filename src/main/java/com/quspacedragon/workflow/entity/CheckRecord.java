@@ -1,16 +1,18 @@
 package com.quspacedragon.workflow.entity;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.annotations.Version;
-import com.quspacedragon.workflow.entity.BaseEntity;
+import com.google.common.collect.Lists;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author quspacedragon
@@ -21,109 +23,146 @@ public class CheckRecord extends BaseEntity<CheckRecord> {
 
     private static final long serialVersionUID = 1L;
 
-	@TableField("user_id")
-	private Integer userId;
+    @TableField("user_id")
+    private Integer userId;
     /**
      * 设备实体id
      */
-	@TableField("equip_entity_id")
-	private Integer equipEntityId;
+    @TableField("equip_entity_id")
+    private Integer equipEntityId;
     /**
      * 巡检id
      */
-	@TableField("check_project_id")
-	private Integer checkProjectId;
+    @TableField("check_project_id")
+    private Integer checkProjectId;
     /**
      * 巡检时间
      */
-	@TableField("check_time")
-	private Long checkTime;
+    @TableField("check_time")
+    private Long checkTime;
     /**
      * 巡检有效期开始时间
      */
-	@TableField("valid_start_time")
-	private Long validStartTime;
+    @TableField("valid_start_time")
+    private Long validStartTime;
     /**
      * 巡检有效期结束时间
      */
-	@TableField("valid_end_time")
-	private Long validEndTime;
+    @TableField("valid_end_time")
+    private Long validEndTime;
+
+    @TableField("imgs")
+    private String imgs;
+    @TableField("memo")
+    private String memo;
+
+    @TableField(exist = false)
+    @ApiModelProperty("图片列表")
+    private List<String> imgList;
 
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public Integer getEquipEntityId() {
-		return equipEntityId;
-	}
+    public Integer getEquipEntityId() {
+        return equipEntityId;
+    }
 
-	public void setEquipEntityId(Integer equipEntityId) {
-		this.equipEntityId = equipEntityId;
-	}
+    public void setEquipEntityId(Integer equipEntityId) {
+        this.equipEntityId = equipEntityId;
+    }
 
-	public Integer getCheckProjectId() {
-		return checkProjectId;
-	}
+    public Integer getCheckProjectId() {
+        return checkProjectId;
+    }
 
-	public void setCheckProjectId(Integer checkProjectId) {
-		this.checkProjectId = checkProjectId;
-	}
+    public void setCheckProjectId(Integer checkProjectId) {
+        this.checkProjectId = checkProjectId;
+    }
 
-	public Long getCheckTime() {
-		return checkTime;
-	}
+    public Long getCheckTime() {
+        return checkTime;
+    }
 
-	public void setCheckTime(Long checkTime) {
-		this.checkTime = checkTime;
-	}
+    public void setCheckTime(Long checkTime) {
+        this.checkTime = checkTime;
+    }
 
-	public Long getValidStartTime() {
-		return validStartTime;
-	}
+    public Long getValidStartTime() {
+        return validStartTime;
+    }
 
-	public void setValidStartTime(Long validStartTime) {
-		this.validStartTime = validStartTime;
-	}
+    public void setValidStartTime(Long validStartTime) {
+        this.validStartTime = validStartTime;
+    }
 
-	public Long getValidEndTime() {
-		return validEndTime;
-	}
+    public Long getValidEndTime() {
+        return validEndTime;
+    }
 
-	public void setValidEndTime(Long validEndTime) {
-		this.validEndTime = validEndTime;
-	}
+    public void setValidEndTime(Long validEndTime) {
+        this.validEndTime = validEndTime;
+    }
 
-	public static final String USER_ID = "user_id";
+    public String getImgs() {
+        return imgs;
+    }
 
-	public static final String EQUIP_ENTITY_ID = "equip_entity_id";
+    public void setImgs(String imgs) {
+        this.imgs = imgs;
+    }
 
-	public static final String CHECK_PROJECT_ID = "check_project_id";
+    public String getMemo() {
+        return memo;
+    }
 
-	public static final String CHECK_TIME = "check_time";
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
-	public static final String VALID_START_TIME = "valid_start_time";
+    public List<String> getImgList() {
+        if (StringUtils.isNotEmpty(imgs)) {
+            imgList = Lists.newArrayList(imgs.split(","));
 
-	public static final String VALID_END_TIME = "valid_end_time";
+        }
+        return imgList;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    public void setImgList(List<String> imgList) {
+        this.imgList = imgList;
+    }
 
-	@Override
-	public String toString() {
-		return "CheckRecord{" +
-			"userId=" + userId +
-			", equipEntityId=" + equipEntityId +
-			", checkProjectId=" + checkProjectId +
-			", checkTime=" + checkTime +
-			", validStartTime=" + validStartTime +
-			", validEndTime=" + validEndTime +
-			"}";
-	}
+    public static final String USER_ID = "user_id";
+
+    public static final String EQUIP_ENTITY_ID = "equip_entity_id";
+
+    public static final String CHECK_PROJECT_ID = "check_project_id";
+
+    public static final String CHECK_TIME = "check_time";
+
+    public static final String VALID_START_TIME = "valid_start_time";
+
+    public static final String VALID_END_TIME = "valid_end_time";
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckRecord{" +
+                "userId=" + userId +
+                ", equipEntityId=" + equipEntityId +
+                ", checkProjectId=" + checkProjectId +
+                ", checkTime=" + checkTime +
+                ", validStartTime=" + validStartTime +
+                ", validEndTime=" + validEndTime +
+                "}";
+    }
 }

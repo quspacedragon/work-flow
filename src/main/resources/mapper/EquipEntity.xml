@@ -22,6 +22,7 @@
 		<result column="check_project_id" property="checkProjectId" />
 		<result column="maintain_id" property="maintainId" />
 		<result column="fix_id" property="fixId" />
+		<result column="position" property="fixId" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
@@ -33,6 +34,7 @@
 	status,
 	type,
 	attribute,
+		position,
 	create_time AS createTime,
         name, code, equipment_id AS equipmentId, level, supply_info AS supplyInfo, buy_time AS buyTime, memo, check_project_id AS checkProjectId,
 		maintain_id as maintainId,

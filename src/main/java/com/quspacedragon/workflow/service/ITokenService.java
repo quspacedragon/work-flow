@@ -15,4 +15,6 @@ public interface ITokenService extends IService<Token> {
 
     public Token findValidToken(Integer userId, Integer type);
 
+    public Token findToken(String tokenValue, Integer type);
+
 }

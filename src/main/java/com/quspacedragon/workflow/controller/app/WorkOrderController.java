@@ -70,10 +70,10 @@ public class WorkOrderController {
             @ApiParam(value = "页码", required = false) @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
             @ApiParam(value = "类型 1设备工单 2报事", required = true) @RequestParam(value = "type", required = true) Integer type,
             @RequestParam(value = "token", required = true) String token,
-            @RequestParam(value = "userId", required = true) Long userId,
+            @ApiParam(value = "每页条数", required = false) @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
             HttpServletRequest httpServletRequest) {
 
-        Page<WorkOrder> workOrderPage = new Page<>();
+        Page<WorkOrder> workOrderPage = new Page<>(pageNo,pageSize);
         WorkOrder workOrder = new WorkOrder();
         Integer loginUserId = loginHelper.getLoginUserId(token, httpServletRequest);
         workOrder.setProcessUserId(loginUserId);

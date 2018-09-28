@@ -11,7 +11,8 @@ package com.quspacedragon.workflow.enums;
  */
 public enum CheckRecordStatusEnum {
     TODO(0, "待处理"),
-    CHECKED(1, "已处理"),
+    TO_WORK(1, "已开工"),
+    CHECKED(2, "已完工"),
     FAIL(-1, "失败"),;
 
     private Integer status;

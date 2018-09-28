@@ -67,6 +67,9 @@ public class EquipEntity extends BaseEntity<EquipEntity> {
     @ApiModelProperty("巡检人id")
     @TableField("fix_id")
     private Integer fixId;
+    @ApiModelProperty("位置")
+    @TableField("position")
+    private String position;
 
 
     public static final String NAME = "name";

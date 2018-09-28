@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author quspacedragon
  * @since 2018-09-05
  */
-@Api("设备报修")
+@Api("app-设备报修")
 @Controller("appEquipRepairController")
 @RequestMapping("/app/equipRepair")
 public class EquipRepairController {
@@ -39,19 +39,19 @@ public class EquipRepairController {
     LoginHelper loginHelper;
 
 
-//    @ApiOperation(value = "报修登记", response = WorkOrder.class)
-//    @RequestMapping(value = "/v1/save", method = {RequestMethod.POST})
-//    @ApiImplicitParam(name = "workOrder", value = "创建", required = true, dataType = "WorkOrder")
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.OK)
-//    public Result save(@RequestBody(required = true) EquipRepair equipRepair,
-//                       HttpServletRequest httpServletRequest) {
-//        boolean insert = equipRepairService.insert(equipRepair);
-//        if (!insert) {
-//            return ApiResultUtils.failResult("保存失败");
-//        }
-//        return ApiResultUtils.successResult(workOrderService.selectById(workOrder.getId()));
-//    }
+    @ApiOperation(value = "报修登记", response = WorkOrder.class)
+    @RequestMapping(value = "/v1/save", method = {RequestMethod.POST})
+    @ApiImplicitParam(name = "equipRepair", value = "登记", required = true, dataType = "EquipRepair")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Result save(@RequestBody(required = true) EquipRepair equipRepair,
+                       HttpServletRequest httpServletRequest) {
+        boolean insert = equipRepairService.insert(equipRepair);
+        if (!insert) {
+            return ApiResultUtils.failResult("保存失败");
+        }
+        return ApiResultUtils.successResult(equipRepairService.selectById(equipRepair.getId()));
+    }
 
 
 }

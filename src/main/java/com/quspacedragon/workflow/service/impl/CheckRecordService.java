@@ -16,5 +16,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CheckRecordService extends ServiceImpl<CheckRecordMapper, CheckRecord> implements ICheckRecordService {
-	
+
+    @Override
+    public CheckRecord findNowCheckRecord(Integer checkProject) {
+
+
+//        baseMapper.selectById()
+        return null;
+    }
 }
